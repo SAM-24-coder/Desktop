@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurion: Legacy of the Kori-Odan - The Action RPG</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                    },
+                    colors: {
+                        amber: {
+                            450: '#F59E0B',
+                            500: '#F59E0B',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Styles spécifiques pour le Slider Avant/Après */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .slider-handle-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #F59E0B;
+            z-index: 20;
+            cursor: ew-resize;
+            pointer-events: none;
+            /* Le curseur est géré par l'input range */
+        }
+
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: #F59E0B;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+            border: 3px solid white;
+        }
+
+        /* Masquer l'input range par défaut mais garder la fonctionnalité */
+        input[type=range].slider-input {
+            -webkit-appearance: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: ew-resize;
+            z-index: 30;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F59E0B;
+        }
+
+        /* Sticky Header Animation */
+        .main_h {
+            position: fixed;
+            top: 0px;
+            z-index: 999;
+            width: 100%;
+            background: none;
+            overflow: hidden;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            opacity: 0;
+            top: -100px;
+        }
+
+        .main_h.sticky {
+            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.98), rgba(2, 6, 23, 0.95));
+            opacity: 1;
+            top: 0px;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-slate-950 text-white font-sans selection:bg-amber-500 selection:text-black bg-cover bg-center bg-no-repeat bg-fixed"
+    style="background-image: url('https://aurionthegame.com/assets/bg-home.png');">
+
+    <!-- NAV -->
+    <nav class="main_h fixed w-full z-50 backdrop-blur-md border-b border-slate-800">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <!-- Logo text placeholder -->
+                <div class="text-xl font-bold tracking-tighter text-amber-500 font-serif">
+                    <img src="https://d1yei2z3i6k35z.cloudfront.net/1015683/6442575d8baa5_logo_kiroo.png" alt="">
+                </div>
+            </div>
+            <a href="#pricing"
+                class="bg-amber-600 hover:bg-amber-500 text-white px-5 py-2 rounded-full font-bold text-sm transition transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-amber-900/20">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i> Get Bundle
+            </a>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Video Background Simulation -->
+        <div class="absolute inset-0 z-0">
+            <!-- Overlay Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-900/40 z-10"></div>
+            <!-- Placeholder for Video Loop -->
+            <video class="absolute inset-0 hero-video" autoplay muted loop playsinline preload="metadata">
+                <source src="https://d1yei2z3i6k35z.cloudfront.net/1015683/6447f9426539e_scope2_web.mp4"
+                    type="video/mp4">
+            </video>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-20 text-center mt-32">
+            <div
+                class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-400 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-sm animate-pulse-slow">
+                <i data-lucide="play-circle" class="w-3 h-3"></i> Play the Anime
+            </div>
+
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight tracking-tight font-serif">
+                YOU READ THE STORY.<br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-amber-400">
+                    NOW MASTER IT.
+                </span>
+            </h1>
+
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-8 leading-relaxed font-light">
+                The first <strong>African-Fantasy Action RPG</strong>. Become Enkwo Kori-Odan, reclaim your throne, and
+                fight with the speed of a shonen anime.
+            </p>
+
+            <div class="flex flex-col items-center gap-4 mt-48">
+                <!-- Main Bundle Button -->
+                <a href="#pricing"
+                    class="bg-amber-500 hover:bg-amber-400 text-black px-10 py-5 rounded-lg font-bold text-xl transition shadow-xl shadow-amber-500/20 flex items-center justify-center gap-3 transform hover:scale-105 duration-300 w-full max-w-md">
+                    <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+                    <span>Get the Official Bundle <span class="text-sm opacity-80 block font-normal text-black/80">-70%
+                            OFF Today</span></span>
+                </a>
+
+                <!-- Credibility Line (No Links) -->
+                <div class="flex items-center gap-3 text-slate-400 text-md uppercase tracking-widest mt-2">
+                    <span>Also available on major platforms</span>
+                    <span class="h-4 w-px bg-slate-700"></span>
+                    <div class="flex gap-3 opacity-70">
+                        <span class="flex items-center gap-1"><i data-lucide="monitor" class="w-3 h-3"></i> STEAM</span>
+                        <span class="flex items-center gap-1"><i data-lucide="gamepad-2" class="w-3 h-3"></i>
+                            XBOX</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 animate-bounce">
+                <a href="#reality-check" class="text-slate-500 hover:text-white transition">
+                    <i data-lucide="chevron-down" class="w-8 h-8 mx-auto"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. REALITY CHECK: SLIDER -->
+    <section id="reality-check" class="py-24 bg-slate-900 overflow-hidden relative border-t border-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 font-serif">From Panel to Pixel</h2>
+                <p className="text-slate-400 max-w-xl mx-auto">
+                    Experience the Aurion in Real-Time. Every strike, every spell, every movement is now under
+                    <strong>YOUR</strong> control.
+                </p>
+            </div>
+
+            <!-- Custom Interactive Slider -->
+            <div
+                class="relative w-full max-w-5xl mx-auto aspect-video rounded-xl overflow-hidden shadow-2xl shadow-amber-900/10 border border-slate-700 slider-container group">
+
+                <!-- BACKGROUND IMAGE (GAMEPLAY / AFTER) -->
+                <div class="absolute inset-0 bg-slate-800 flex items-center justify-center">
+                    <div
+                        class="absolute inset-0 bg-[url('https://placehold.co/1200x675/0f172a/amber?text=GAMEPLAY+ACTION+(GIF)')] bg-cover bg-center">
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 bg-black/60 px-3 py-1 rounded text-xs font-bold uppercase backdrop-blur border border-white/10">In-Game
+                        Action</span>
+                </div>
+
+                <!-- FOREGROUND IMAGE (COMIC / BEFORE) - CLIPPED -->
+                <div id="slider-foreground"
+                    class="absolute inset-0 bg-white overflow-hidden border-r-2 border-amber-500" style="width: 50%;">
+                    <!-- Important: width must match parent aspect ratio to avoid stretching -->
+                    <div
+                        class="absolute inset-0 w-[100vw] max-w-5xl h-full bg-[url('https://placehold.co/1200x675/e2e8f0/000?text=COMIC+PANEL+(SOURCE)')] bg-cover bg-center">
+                    </div>
+                    <span
+                        class="absolute top-4 left-4 bg-white/90 text-black px-3 py-1 rounded text-xs font-bold uppercase shadow-sm">Graphic
+                        Novel</span>
+                </div>
+
+                <!-- HANDLER VISUALS -->
+                <div id="slider-handle" class="slider-handle-line" style="left: 50%;">
+                    <div class="slider-button">
+                        <i data-lucide="chevrons-left-right" class="w-4 h-4 text-black"></i>
+                    </div>
+                </div>
+
+                <!-- ACTUAL INPUT RANGE (INVISIBLE) -->
+                <input type="range" min="0" max="100" value="50" class="slider-input" id="slider-input">
+            </div>
+
+            <p class="text-center text-xs text-slate-500 mt-6 italic flex items-center justify-center gap-2">
+                <i data-lucide="mouse-pointer-2" class="w-3 h-3"></i> Drag the slider to unleash the Kori-Odan.
+            </p>
+        </div>
+    </section>
+
+    <!-- 3. GAMEPLAY LOOP -->
+    <section class="py-24 bg-slate-950 relative">
+        <!-- Background decorative element -->
+        <div
+            class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-amber-500/5 to-transparent pointer-events-none">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">Strategic Combat, <span
+                        class="text-slate-500 line-through decoration-amber-500 decoration-2">Button Mashing</span></h2>
+                <p className="text-slate-400">It's not just a brawl. It's a martial arts dialogue.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div
+                    class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 hover:border-amber-500/50 transition duration-300 group hover:-translate-y-2">
+                    <div class="aspect-video bg-slate-800 rounded-xl mb-6 overflow-hidden relative">
+                        <div
+                            class="absolute inset-0 bg-[url('https://placehold.co/400x300/222/amber?text=GIF:+AIR+COMBOS')] bg-cover opacity-60 group-hover:opacity-100 transition">
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                        <i data-lucide="sword" class="text-amber-500 w-5 h-5"></i> Legacy Combos
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Unlock the forbidden techniques of your ancestors.
+                        Chain aerial juggles with surgical precision.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div
+                    class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 hover:border-amber-500/50 transition duration-300 group hover:-translate-y-2">
+                    <div class="aspect-video bg-slate-800 rounded-xl mb-6 overflow-hidden relative">
+                        <div
+                            class="absolute inset-0 bg-[url('https://placehold.co/400x300/222/blue?text=GIF:+ELEMENTS')] bg-cover opacity-60 group-hover:opacity-100 transition">
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                        <i data-lucide="zap" class="text-amber-500 w-5 h-5"></i> Aurion Elements
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Fuse Fire, Water, and Wind in real-time. Adapt
+                        your strategy to every enemy type.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div
+                    class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 hover:border-amber-500/50 transition duration-300 group hover:-translate-y-2">
+                    <div class="aspect-video bg-slate-800 rounded-xl mb-6 overflow-hidden relative">
+                        <div
+                            class="absolute inset-0 bg-[url('https://placehold.co/400x300/222/pink?text=GIF:+COUPLE')] bg-cover opacity-60 group-hover:opacity-100 transition">
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                        <i data-lucide="heart-handshake" class="text-amber-500 w-5 h-5"></i> The Power Couple
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">You are never alone. Call Ewineh as a Support
+                        Striker to extend combos or shield you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. NARRATIVE IMMERSION -->
+    <section class="py-24 relative overflow-hidden flex items-center justify-center">
+        <!-- Background Parallax illusion -->
+        <video class="absolute inset-0 w-full h-full object-cover hero-video" autoplay muted loop playsinline
+            preload="metadata">
+            <source src="https://d1yei2z3i6k35z.cloudfront.net/1015683/644b9a4819477_aurionverse_banner_video.mp4"
+                type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-slate-950/80"></div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <i data-lucide="quote" class="w-12 h-12 text-amber-500/30 mx-auto mb-6"></i>
+            <blockquote
+                class="text-2xl md:text-4xl font-serif font-bold text-amber-100 mb-8 max-w-4xl mx-auto italic leading-normal">
+                "From the Heart of Africa,<br /> An Action Video Game With Soul."
+            </blockquote>
+            <cite class="text-amber-500 font-bold tracking-widest uppercase not-italic text-sm">- KOTAKU</cite>
+
+            <div class="w-16 h-1 bg-amber-500/50 mx-auto my-10"></div>
+
+            <p class="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                20+ hours of gameplay. A profound reflection on power, exile, and humanity.
+                The story you loved in the books finds its <strong>epic conclusion</strong> here.
+            </p>
+        </div>
+    </section>
+
+    <!-- 5. SMART CHOICE (PRICING - REDESIGNED FOR SINGLE OFFER) -->
+    <section id="pricing" class="py-24 bg-slate-950 relative overflow-hidden">
+        <!-- Glow effect behind the card -->
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-full max-h-[500px] bg-amber-500/10 blur-3xl rounded-full pointer-events-none">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 font-serif text-white">The Ultimate Legacy Collection
+                </h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">Get the complete Aurion experience directly from the
+                    creators. Maximum rewards, best price, direct support.</p>
+            </div>
+
+            <!-- SINGLE MEGA CARD -->
+            <div
+                class="max-w-5xl mx-auto bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-500/30 rounded-3xl overflow-hidden shadow-2xl shadow-amber-900/20 relative flex flex-col md:flex-row">
+
+                <!-- Left: Visuals & Badge -->
+                <div
+                    class="w-full md:w-2/5 bg-slate-900/50 relative p-8 flex flex-col justify-center items-center border-b md:border-b-0 md:border-r border-slate-800">
+                    <div
+                        class="absolute top-4 left-4 bg-amber-500 text-black px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">
+                        Best Value
+                    </div>
+                    <!-- Mockup of Bundle -->
+                    <div
+                        class="relative w-48 h-64 bg-slate-800 rounded-lg shadow-2xl rotate-3 transform hover:rotate-0 transition duration-500 mb-6 border border-slate-700">
+                        <div
+                            class="absolute inset-0 bg-[url('https://d1yei2z3i6k35z.cloudfront.net/1015683/6970c17298557_AURIONXBOX_PORTRAIT_POSTERfinalv4Fr.jpg')] bg-cover bg-center opacity-80">
+                        </div>
+                        <!-- Stacked items illusion -->
+                        <div
+                            class="absolute -right-4 -bottom-4 w-48 h-64 bg-slate-800/80 rounded-lg -z-10 border border-slate-700">
+                        </div>
+                        <div
+                            class="absolute -right-8 -bottom-8 w-48 h-64 bg-slate-800/60 rounded-lg -z-20 border border-slate-700">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 opacity-50 mt-4" title="Available on these platforms">
+                        <i data-lucide="monitor" class="w-4 h-4 text-white"></i>
+                        <span class="text-xs text-slate-300 mr-2">PC/STEAM</span>
+                        <i data-lucide="gamepad-2" class="w-4 h-4 text-white"></i>
+                        <span class="text-xs text-slate-300">XBOX SERIES</span>
+                    </div>
+                </div>
+
+                <!-- Right: Content & Action -->
+                <div class="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
+                    <h3 class="text-3xl font-serif font-bold text-amber-500 mb-2">Official Aurion Mega Bundle</h3>
+                    <p class="text-slate-300 mb-8">Everything you need to complete your journey in the Aurionverse.</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center gap-3 bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+                            <i data-lucide="gamepad-2" class="text-amber-500 w-5 h-5 shrink-0"></i>
+                            <div>
+                                <span class="block text-white font-bold text-sm">Full Game (PC)</span>
+                                <span class="block text-slate-500 text-xs">DRM-Free or Steam Key</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+                            <i data-lucide="music" class="text-amber-500 w-5 h-5 shrink-0"></i>
+                            <div>
+                                <span class="block text-white font-bold text-sm">Original Soundtrack</span>
+                                <span class="block text-slate-500 text-xs">High Quality Audio</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+                            <i data-lucide="book" class="text-amber-500 w-5 h-5 shrink-0"></i>
+                            <div>
+                                <span class="block text-white font-bold text-sm">Digital Artbook</span>
+                                <span class="block text-slate-500 text-xs">Exclusive Lore & Art</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+                            <i data-lucide="smartphone" class="text-amber-500 w-5 h-5 shrink-0"></i>
+                            <div>
+                                <span class="block text-white font-bold text-sm">Mobile Premium Pack</span>
+                                <span class="block text-slate-500 text-xs">Bonus Items for KGF</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center gap-6 border-t border-slate-800 pt-8">
+                        <div>
+                            <span
+                                class="text-slate-500 line-through text-lg block decoration-red-500 decoration-2">$35.00</span>
+                            <span class="text-5xl font-bold text-white">$9.99</span>
+                        </div>
+                        <button
+                            class="w-full bg-amber-500 hover:bg-amber-400 text-black py-4 px-8 rounded-lg font-bold text-lg uppercase tracking-wider shadow-lg shadow-amber-500/20 transition transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                            Add to Cart <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-center sm:justify-start gap-4 mt-6 text-xs text-slate-500">
+                        <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3 h-3"></i> Secure
+                            Payment</span>
+                        <span class="flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3"></i> Instant
+                            Delivery</span>
+                        <span class="flex items-center gap-1"><i data-lucide="heart" class="w-3 h-3"></i> Support
+                            Devs</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. NEW SECTION: REVIEWS -->
+    <section class="py-24 bg-slate-900 border-t border-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2 font-serif text-white">Voices of the Kori-Odan</h2>
+                    <p class="text-slate-400">Join thousands of players in the Aurionverse.</p>
+                </div>
+                <div
+                    class="mt-4 md:mt-0 flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full border border-slate-700">
+                    <div class="flex">
+                        <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
+                    </div>
+                    <span class="text-sm font-bold text-white">Very Positive</span>
+                    <span class="text-xs text-slate-500">(Steam)</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Review 1 -->
+                <div
+                    class="bg-slate-950 p-8 rounded-xl border border-slate-800 relative hover:border-amber-500/30 transition">
+                    <i data-lucide="quote" class="absolute top-6 right-6 w-8 h-8 text-slate-800"></i>
+                    <p class="text-slate-300 italic mb-6 leading-relaxed">"The combat system is deeper than most AAA
+                        titles. It rewards skill and creativity like no other RPG I've played this year."</p>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-500 font-bold">
+                            D</div>
+                        <div>
+                            <div class="font-bold text-white text-sm">DarkSoul_99</div>
+                            <div class="text-xs text-slate-500">Played 54 hours</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div
+                    class="bg-slate-950 p-8 rounded-xl border border-slate-800 relative hover:border-amber-500/30 transition">
+                    <i data-lucide="quote" class="absolute top-6 right-6 w-8 h-8 text-slate-800"></i>
+                    <p class="text-slate-300 italic mb-6 leading-relaxed">"Finally, a fantasy world that isn't just
+                        knights and dragons. The African lore brings a freshness that the genre desperately needed."</p>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-500 font-bold">
+                            S</div>
+                        <div>
+                            <div class="font-bold text-white text-sm">Sarah Jenkins</div>
+                            <div class="text-xs text-slate-500">Played 32 hours</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div
+                    class="bg-slate-950 p-8 rounded-xl border border-slate-800 relative hover:border-amber-500/30 transition">
+                    <i data-lucide="quote" class="absolute top-6 right-6 w-8 h-8 text-slate-800"></i>
+                    <p class="text-slate-300 italic mb-6 leading-relaxed">"I came for the graphics, I stayed for the
+                        story. Enkwo and Ewineh's relationship is the heart of this masterpiece."</p>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-500 font-bold">
+                            K</div>
+                        <div>
+                            <div class="font-bold text-white text-sm">KiroFan_Official</div>
+                            <div class="text-xs text-slate-500">Played 89 hours</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-slate-900 py-12 text-sm">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-8">
+
+                <div class="max-w-xs">
+                    <div class="text-xl font-bold tracking-tighter text-amber-500 mb-4 font-serif">AURION</div>
+                    <p class="text-slate-500">
+                        Kiro'o Games is the first African RPG Studio. We craft stories with African Soul for a Global
+                        Audience.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 uppercase text-xs tracking-wider">System Requirements (PC)</h4>
+                    <ul class="space-y-2 text-slate-500">
+                        <li>OS: Windows 7/8/10/11</li>
+                        <li>Processor: Core 2 Duo 2.4Ghz</li>
+                        <li>Memory: 4 GB RAM</li>
+                        <li>Graphics: DX9 Compatible, 1GB VRAM</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 uppercase text-xs tracking-wider">Connect</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-slate-500 hover:text-amber-500 transition"><i data-lucide="twitter"
+                                class="w-5 h-5"></i></a>
+                        <a href="#" class="text-slate-500 hover:text-amber-500 transition"><i data-lucide="facebook"
+                                class="w-5 h-5"></i></a>
+                        <a href="#" class="text-slate-500 hover:text-amber-500 transition"><i data-lucide="youtube"
+                                class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="border-t border-slate-900 mt-12 pt-8 text-center text-slate-600">
+                &copy; <span id="year"></span> Kiro'o Games. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // 1. Initialize Icons
+        lucide.createIcons();
+
+        // 2. Set Year
+        document.getElementById('year').innerText = new Date().getFullYear();
+
+        // 3. Slider Logic
+        const sliderInput = document.getElementById('slider-input');
+        const sliderForeground = document.getElementById('slider-foreground');
+        const sliderHandle = document.getElementById('slider-handle');
+
+        sliderInput.addEventListener('input', function (e) {
+            const value = e.target.value;
+            sliderForeground.style.width = value + '%';
+            sliderHandle.style.left = value + '%';
+        });
+
+        // 4. Sticky Header Animation on Scroll
+        window.addEventListener('scroll', function () {
+            const mainHeader = document.querySelector('.main_h');
+
+            if (window.scrollY > 100) {
+                mainHeader.classList.add('sticky');
+            } else {
+                mainHeader.classList.remove('sticky');
+            }
+        });
+
+        // 5. Smooth Scroll for Navigation Links (if any added later)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '#pricing') return; // Only for internal links
+
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offset = 70;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

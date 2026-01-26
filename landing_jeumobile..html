@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurion: Kajuta Gems Fighters - Mobile RPG</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Cinzel:wght@700&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Fredoka', 'sans-serif'],
+                        aurion: ['Cinzel', 'serif'],
+                    },
+                    colors: {
+                        aurion: {
+                            blue: '#0EA5E9',
+                            purple: '#8B5CF6',
+                            gold: '#F59E0B',
+                            red: '#EF4444',
+                            green: '#10B981',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 10px rgba(245, 158, 11, 0.2)' },
+                            '100%': { boxShadow: '0 0 20px rgba(245, 158, 11, 0.6)' },
+                        }
+                    },
+                    backgroundImage: {
+                        'tribal-pattern': "url('data:image/svg+xml,%3Csvg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"%239C92AC\" fill-opacity=\"0.05\" fill-rule=\"evenodd\"%3E%3Ccircle cx=\"3\" cy=\"3\" r=\"3\"/%3E%3Ccircle cx=\"13\" cy=\"13\" r=\"3\"/%3E%3C/g%3E%3C/svg%3E')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Styles spécifiques pour le scrollbar horizontal des héros */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .hero-avatar.active {
+            border-color: #F59E0B;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+        }
+
+        /* Effet de verre pour les cartes */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-slate-900 text-white font-sans selection:bg-aurion-purple selection:text-white bg-tribal-pattern">
+
+    <!-- NAV -->
+    <nav class="fixed w-full z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="text-xl font-bold tracking-tighter text-aurion-blue font-display">
+                    AURION <span class="text-white text-xs ml-1 opacity-70 font-sans tracking-widest">KGF</span>
+                </div>
+            </div>
+            <a href="#shop"
+                class="bg-gradient-to-r from-aurion-purple to-aurion-blue hover:from-aurion-blue hover:to-aurion-purple text-white px-5 py-2 rounded-full font-bold text-sm transition transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-purple-900/20">
+                <i data-lucide="gem" class="w-4 h-4"></i> Visit our Bundle Shop
+            </a>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION: POCKET ORIGINS -->
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 -z-10 overflow-hidden">
+            <div class="absolute inset-0 bg-slate-900/60 z-10"></div>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/1015683/6970a0e605924_Hailuo_Image_pleasereducethelightraysi_455472581519867913.jpg"
+                class="w-full h-full object-cover blur-lg scale-105" alt="Background">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 flex flex-col-reverse lg:flex-row items-center gap-12">
+
+            <!-- Text Content -->
+            <div
+                class="lg:w-1/2 space-y-8 text-center lg:text-left bg-gradient-to-r from-slate-900/60 to-transparent p-8 rounded-3xl">
+                <div
+                    class="inline-flex items-center gap-2 bg-slate-800 border border-slate-700 text-aurion-blue px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+                    <i data-lucide="smartphone" class="w-3 h-3"></i> Available Now
+                </div>
+
+                <h1 class="text-5xl lg:text-7xl font-bold font-display leading-tight">
+                    The Origins of Aurion<br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-aurion-blue to-aurion-purple">
+                        In Your Pocket.
+                    </span>
+                </h1>
+
+                <p class="text-lg text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    Dive into the prequel. Experience <strong>Strategic Match-3 Gameplay</strong> combined with deep RPG
+                    mechanics.
+                    Unleash the Kajuta spirits anywhere, anytime.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <button
+                        class="bg-white text-black px-6 py-3 rounded-lg font-bold hover:bg-gray-200 transition flex items-center justify-center gap-2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Apple_logo_white.svg"
+                            class="w-5 h-5 filter invert" alt="Apple">
+                        App Store
+                    </button>
+                    <button
+                        class="bg-transparent border border-slate-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-slate-800 transition flex items-center justify-center gap-2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg" class="w-5 h-5"
+                            alt="Android">
+                        Google Play
+                    </button>
+                </div>
+
+                <!-- Web Shop Teaser Badge -->
+                <div class="inline-block bg-slate-800/80 backdrop-blur p-3 rounded-lg border border-aurion-gold/30 mt-4 animate-float cursor-pointer hover:bg-slate-700 transition"
+                    onclick="document.getElementById('shop').scrollIntoView({behavior: 'smooth'})">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-aurion-gold p-2 rounded-full text-black">
+                            <i data-lucide="gift" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-xs text-aurion-gold font-bold uppercase">Web Exclusive</div>
+                            <div class="text-sm font-bold text-white">Get +50% Bonus on Top-Ups</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Visual (Phone Mockup) -->
+            <div class="lg:w-1/2 flex justify-center">
+                <!-- Premium Smartphone Mockup (iPhone Style) -->
+                <div
+                    class="relative w-[340px] h-[700px] bg-black rounded-[3.5rem] border-[12px] border-slate-800 shadow-2xl shadow-aurion-purple/30 overflow-hidden outline outline-1 outline-slate-700">
+                    <!-- Dynamic Island -->
+                    <div
+                        class="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-3xl z-20 flex items-center justify-end px-4">
+                        <div class="w-2 h-2 rounded-full bg-blue-900/20"></div>
+                    </div>
+
+                    <!-- Side Buttons -->
+                    <div class="absolute -left-[13px] top-32 w-[3px] h-12 bg-slate-700 rounded-l-lg"></div>
+                    <div class="absolute -left-[13px] top-48 w-[3px] h-16 bg-slate-700 rounded-l-lg"></div>
+                    <div class="absolute -right-[13px] top-40 w-[3px] h-20 bg-slate-700 rounded-r-lg"></div>
+
+                    <iframe class="absolute inset-0 w-full h-full object-cover"
+                        src="https://www.youtube.com/embed/uenPGbwWKBk?autoplay=1&mute=1&loop=1&playlist=uenPGbwWKBk&controls=0&showinfo=0&rel=0&modestbranding=1"
+                        title="Aurion Mobile Gameplay" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+
+                    <!-- Screen Glare Effect -->
+                    <div
+                        class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/5 via-transparent to-transparent z-10">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- 2. HEROES SHOWCASE (REDESIGNED FOR MOBILE FORMAT & NAMA) -->
+    <section class="py-24 bg-slate-800 relative overflow-hidden">
+        <!-- Background Decor -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div
+                class="absolute top-10 left-10 w-40 h-40 border-4 border-aurion-gold rounded-full border-dashed animate-spin-slow">
+            </div>
+            <div class="absolute bottom-10 right-10 w-60 h-60 border-2 border-aurion-blue rounded-full"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 ">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl md:text-4xl font-aurion font-bold text-white mb-2">Assemble Your Legacy</h2>
+                <p class="text-slate-400">Master the flow of Mana. Collect the legends.</p>
+            </div>
+
+            <!-- Main Interactive Component -->
+            <div class="max-w-6xl mx-auto relative">
+
+                <!-- 2. Hero Display Area -->
+                <div
+                    class="bg-gradient-to-b from-slate-900 to-slate-950 rounded-3xl border border-slate-700 p-6 lg:p-12 shadow-2xl relative pt-16 mt-12">
+
+                    <!-- 1. Hero Roster (Selector) - Positioned half above -->
+                    <div
+                        class="absolute -top-10 left-1/2 -translate-x-1/2 z-30 flex justify-center gap-4 overflow-x-auto hide-scrollbar pb-2 pt-2 w-full max-w-max px-4">
+                        <!-- Enkwo -->
+                        <button onclick="changeHero('enkwo'); resetAutoSwitch();"
+                            class="hero-avatar active w-20 h-20 rounded-full border-4 border-slate-700 bg-slate-800 p-1 transition-all duration-300 flex-shrink-0 relative overflow-hidden group shadow-lg">
+                            <img src="https://placehold.co/100x100/111/FFF?text=Enkwo"
+                                class="w-full h-full rounded-full object-cover">
+                            <div class="absolute inset-0 bg-aurion-red/20 opacity-0 group-hover:opacity-100 transition">
+                            </div>
+                        </button>
+                        <!-- Ewineh -->
+                        <button onclick="changeHero('ewineh'); resetAutoSwitch();"
+                            class="hero-avatar w-20 h-20 rounded-full border-4 border-slate-700 bg-slate-800 p-1 transition-all duration-300 flex-shrink-0 relative overflow-hidden group shadow-lg">
+                            <img src="https://placehold.co/100x100/111/FFF?text=Ewineh"
+                                class="w-full h-full rounded-full object-cover">
+                            <div
+                                class="absolute inset-0 bg-aurion-green/20 opacity-0 group-hover:opacity-100 transition">
+                            </div>
+                        </button>
+                        <!-- Ngarba -->
+                        <button onclick="changeHero('ngarba'); resetAutoSwitch();"
+                            class="hero-avatar w-20 h-20 rounded-full border-4 border-slate-700 bg-slate-800 p-1 transition-all duration-300 flex-shrink-0 relative overflow-hidden group shadow-lg">
+                            <img src="https://placehold.co/100x100/111/FFF?text=Ngarba"
+                                class="w-full h-full rounded-full object-cover">
+                            <div
+                                class="absolute inset-0 bg-aurion-blue/20 opacity-0 group-hover:opacity-100 transition">
+                            </div>
+                        </button>
+                        <!-- Ju'u Nama -->
+                        <button onclick="changeHero('nama'); resetAutoSwitch();"
+                            class="hero-avatar w-20 h-20 rounded-full border-4 border-slate-700 bg-slate-800 p-1 transition-all duration-300 flex-shrink-0 relative overflow-hidden group shadow-lg">
+                            <img src="https://placehold.co/100x100/111/FFF?text=Ju'u"
+                                class="w-full h-full rounded-full object-cover">
+                            <div
+                                class="absolute inset-0 bg-aurion-purple/20 opacity-0 group-hover:opacity-100 transition">
+                            </div>
+                        </button>
+                    </div>
+                    <!-- Dynamic Glow Background based on Hero Nama -->
+                    <div id="hero-bg-glow"
+                        class="absolute top-0 right-0 w-1/2 h-full bg-aurion-red/10 blur-[100px] transition-colors duration-700">
+                    </div>
+
+                    <div class="flex flex-col lg:flex-row items-center gap-12">
+
+                        <!-- LEFT: Illustration & Stats -->
+                        <div class="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left z-10">
+
+                            <!-- Nama Type Indicator -->
+                            <div
+                                class="flex items-center gap-2 mb-4 bg-black/40 backdrop-blur px-4 py-2 rounded-full border border-white/10">
+                                <div id="nama-icon-container" class="p-1.5 rounded-full bg-aurion-red text-white">
+                                    <i data-lucide="flame" class="w-4 h-4"></i>
+                                </div>
+                                <span id="nama-text"
+                                    class="text-sm font-bold uppercase tracking-widest text-aurion-red">Fire Nama</span>
+                            </div>
+
+                            <h3 id="hero-name"
+                                class="text-4xl lg:text-6xl font-aurion font-bold text-white mb-2 leading-none">Enkwo
+                                Kori-Odan</h3>
+                            <p id="hero-title" class="text-slate-400 text-lg mb-8 uppercase tracking-widest">The Exiled
+                                King</p>
+
+                            <!-- Hero Art (Large) -->
+                            <div class="relative w-full max-w-sm aspect-square mb-6 lg:mb-0">
+                                <img id="hero-art"
+                                    src="https://placehold.co/500x500/transparent/FFF?text=Enkwo+Epic+Pose"
+                                    class="w-full h-full object-contain drop-shadow-2xl animate-float">
+                            </div>
+
+                            <p id="hero-desc" class="text-slate-300 text-lg leading-relaxed max-w-md mt-6">
+                                Harnesses the explosive power of Fire. His "Meteor Strike" clears vertical columns and
+                                deals massive damage to bosses.
+                            </p>
+                        </div>
+
+                        <!-- RIGHT: Mobile Gameplay Preview (Portrait Video) -->
+                        <div class="lg:w-1/2 flex justify-center lg:justify-end z-10">
+                            <div class="relative">
+                                <!-- Phone Frame -->
+                                <div
+                                    class="w-[280px] h-[560px] bg-black rounded-[2.5rem] border-[6px] border-slate-700 shadow-2xl overflow-hidden relative">
+
+                                    <!-- Video Container (Portrait Aspect Ratio 9:16) -->
+                                    <div class="absolute inset-0 bg-slate-900">
+                                        <!-- Placeholder for Video -->
+                                        <div id="video-preview"
+                                            class="w-full h-full bg-[url('https://placehold.co/280x560/330000/FFF?text=Vertical+Gameplay')] bg-cover bg-center opacity-80 transition duration-500">
+                                        </div>
+
+                                        <!-- Overlay UI Simulation -->
+                                        <div
+                                            class="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-black/90 to-transparent p-6 flex flex-col justify-end">
+                                            <div class="text-white font-display text-xl font-bold mb-1">Special Art
+                                            </div>
+                                            <div id="skill-name"
+                                                class="text-aurion-red text-sm font-bold uppercase tracking-wider">
+                                                Meteor Burster</div>
+                                        </div>
+
+                                        <!-- Play Button Overlay -->
+                                        <div
+                                            class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                            <div
+                                                class="w-16 h-16 bg-white/20 backdrop-blur rounded-full flex items-center justify-center border border-white/50 animate-pulse">
+                                                <i data-lucide="play" class="w-6 h-6 text-white ml-1"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- Decorative Elements behind phone -->
+                                <div
+                                    class="absolute -z-10 -right-10 -bottom-10 w-40 h-40 bg-aurion-gold/20 rounded-full blur-3xl">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SHOP SECTION: WEB EXCLUSIVE (AP & ENERGY) -->
+    <section id="shop" class="py-24 bg-slate-900 relative">
+        <!-- Decoration Line -->
+        <div
+            class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-aurion-gold/50 to-transparent">
+        </div>
+
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-aurion-gold font-bold uppercase tracking-widest text-xs mb-2 block">Web Store
+                    Exclusive</span>
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-white">Refuel Your Journey</h2>
+                <p class="text-slate-400">Buy directly here to get <span class="text-white font-bold">Bonus Items</span>
+                    vs In-App.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- PRODUCT 1: SMALL ENERGY -->
+                <div
+                    class="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-aurion-blue transition group relative">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-24 h-24 bg-blue-900/30 rounded-full flex items-center justify-center relative">
+                            <i data-lucide="zap"
+                                class="w-12 h-12 text-blue-400 fill-blue-400 group-hover:animate-pulse-fast"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-white text-center mb-1">Stack of Energy</h3>
+                    <p class="text-slate-400 text-xs text-center mb-6">50 Energy Bolts + 5 Bonus</p>
+                    <div class="text-center mb-6">
+                        <span class="text-2xl font-bold text-white">$1.99</span>
+                    </div>
+                    <button
+                        class="w-full bg-slate-700 hover:bg-aurion-blue hover:text-white text-white py-3 rounded-lg font-bold transition flex items-center justify-center gap-2 cursor-pointer">
+                        Buy Now
+                    </button>
+                </div>
+
+                <!-- PRODUCT 2: LARGE ENERGY (Featured) -->
+                <div
+                    class="bg-slate-800 rounded-xl p-6 border-2 border-aurion-blue relative transform md:-translate-y-4 shadow-xl shadow-aurion-blue/10">
+                    <div
+                        class="absolute top-0 left-1/2 -translate-x-1/2 bg-aurion-blue text-white px-3 py-1 rounded-b-lg text-xs font-bold uppercase">
+                        Most Popular
+                    </div>
+                    <div class="flex justify-center mb-6 mt-2">
+                        <div class="w-28 h-28 bg-blue-900/30 rounded-full flex items-center justify-center relative">
+                            <i data-lucide="zap" class="w-16 h-16 text-blue-400 fill-blue-400 animate-pulse-fast"></i>
+                            <div
+                                class="absolute -right-2 -top-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                                +20%</div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white text-center mb-1">Energy Generator</h3>
+                    <p class="text-slate-400 text-xs text-center mb-6">250 Energy Bolts + 50 Bonus</p>
+                    <div class="text-center mb-6">
+                        <span class="text-slate-500 line-through text-sm mr-2">$12.00</span>
+                        <span class="text-3xl font-bold text-white">$9.99</span>
+                    </div>
+                    <button
+                        class="w-full bg-aurion-blue hover:bg-blue-500 text-white py-3 rounded-lg font-bold transition flex items-center justify-center gap-2 cursor-pointer">
+                        Buy Now
+                    </button>
+                </div>
+
+                <!-- PRODUCT 3: ACTION POINTS (AP) -->
+                <div
+                    class="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-aurion-gold transition group">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-24 h-24 bg-amber-900/30 rounded-full flex items-center justify-center relative">
+                            <i data-lucide="sword" class="w-12 h-12 text-aurion-gold group-hover:animate-bounce"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-white text-center mb-1">Warrior's AP Pack</h3>
+                    <p class="text-slate-400 text-xs text-center mb-6">10 AP Potions</p>
+                    <div class="text-center mb-6">
+                        <span class="text-2xl font-bold text-white">$4.99</span>
+                    </div>
+                    <button
+                        class="w-full bg-slate-700 hover:bg-aurion-gold hover:text-black text-white py-3 rounded-lg font-bold transition flex items-center justify-center gap-2 cursor-pointer">
+                        Buy Now
+                    </button>
+                </div>
+
+                <!-- PRODUCT 4: MEGA BUNDLE -->
+                <div
+                    class="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-aurion-purple transition group">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-24 h-24 bg-purple-900/30 rounded-full flex items-center justify-center relative">
+                            <i data-lucide="package"
+                                class="w-12 h-12 text-aurion-purple group-hover:rotate-12 transition"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-white text-center mb-1">Warlord Bundle</h3>
+                    <p class="text-slate-400 text-xs text-center mb-6">Max AP + Max Energy</p>
+                    <div class="text-center mb-6">
+                        <span class="text-slate-500 line-through text-sm mr-2">$30.00</span>
+                        <span class="text-2xl font-bold text-white">$19.99</span>
+                    </div>
+                    <button
+                        class="w-full bg-slate-700 hover:bg-aurion-purple hover:text-white text-white py-3 rounded-lg font-bold transition flex items-center justify-center gap-2 cursor-pointer">
+                        Buy Now
+                    </button>
+                </div>
+
+            </div>
+
+            <p class="text-center text-xs text-slate-500 mt-12">
+                <i data-lucide="info" class="w-3 h-3 inline mr-1"></i>
+                Items are delivered immediately to your in-game mailbox after purchase.
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-slate-800">
+        <div class="container mx-auto px-6 text-center">
+            <div class="text-xl font-bold tracking-tighter text-slate-700 mb-6 font-display">AURION KGF</div>
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="#" class="text-slate-500 hover:text-white">Terms</a>
+                <a href="#" class="text-slate-500 hover:text-white">Privacy</a>
+                <a href="#" class="text-slate-500 hover:text-white">Support</a>
+            </div>
+            <div class="text-slate-600 text-sm">
+                &copy; <span id="year"></span> Kiro'o Games. Made with Soul in Cameroon.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+        document.getElementById('year').innerText = new Date().getFullYear();
+
+        // Hero Data
+        const heroes = {
+            'enkwo': {
+                name: 'Enkwo Kori-Odan',
+                title: 'The Exiled King',
+                desc: 'Harnesses the explosive power of Fire. His "Meteor Strike" clears vertical columns and deals massive damage.',
+                namaText: 'Fire Nama',
+                color: 'text-aurion-red',
+                bgGlow: 'bg-aurion-red/10',
+                videoUrl: 'https://placehold.co/280x560/330000/FFF?text=Enkwo+Gameplay',
+                skillName: 'Meteor Burster',
+                icon: 'flame',
+                iconBg: 'bg-aurion-red'
+            },
+            'ewineh': {
+                name: 'Ewineh Kori-Odan',
+                title: 'The Light of Zama',
+                desc: 'Master of Healing Arts. She converts Gems into Health Potions and supports the team with defensive buffers.',
+                namaText: 'Light Nama',
+                color: 'text-aurion-green',
+                bgGlow: 'bg-aurion-green/10',
+                videoUrl: 'https://placehold.co/280x560/003300/FFF?text=Ewineh+Gameplay',
+                skillName: 'Ancestral Healing',
+                icon: 'sun',
+                iconBg: 'bg-aurion-green'
+            },
+            'ngarba': {
+                name: 'Ngarba Evou',
+                title: 'The Iron Wall',
+                desc: 'Unstoppable Defense. Accumulates shields with Blue Gems and reflects damage back to attackers.',
+                namaText: 'Water/Earth Nama',
+                color: 'text-aurion-blue',
+                bgGlow: 'bg-aurion-blue/10',
+                videoUrl: 'https://placehold.co/280x560/000033/FFF?text=Ngarba+Gameplay',
+                skillName: 'Titan Shield',
+                icon: 'shield',
+                iconBg: 'bg-aurion-blue'
+            },
+            'nama': {
+                name: 'Ju\'u Nama Yode',
+                title: 'The Grandmaster',
+                desc: 'Wielder of Void Energy. Manipulates the board by reshuffling Gems and creating chaotic combos.',
+                namaText: 'Void Nama',
+                color: 'text-aurion-purple',
+                bgGlow: 'bg-aurion-purple/10',
+                videoUrl: 'https://placehold.co/280x560/2a1a4a/FFF?text=Nama+Gameplay',
+                skillName: 'Void Shift',
+                icon: 'zap',
+                iconBg: 'bg-aurion-purple'
+            }
+        };
+
+        // Liste des clés de héros pour l'auto-rotation
+        const heroKeys = ['enkwo', 'ewineh', 'ngarba', 'nama'];
+        let currentHeroIndex = 0;
+        let autoSwitchInterval;
+
+        function changeHero(heroKey) {
+            const data = heroes[heroKey];
+            const buttons = document.querySelectorAll('.hero-avatar');
+
+            // Mettre à jour l'index courant
+            currentHeroIndex = heroKeys.indexOf(heroKey);
+
+            // 1. Update Text Content with Fade Effect (Simple implementation)
+            document.getElementById('hero-name').innerText = data.name;
+            document.getElementById('hero-title').innerText = data.title;
+            document.getElementById('hero-desc').innerText = data.desc;
+            document.getElementById('nama-text').innerText = data.namaText;
+            document.getElementById('skill-name').innerText = data.skillName;
+
+            // 2. Update Colors & Icons
+            const namaTextEl = document.getElementById('nama-text');
+            namaTextEl.className = `text-sm font-bold uppercase tracking-widest ${data.color}`;
+
+            const iconContainer = document.getElementById('nama-icon-container');
+            iconContainer.className = `p-1.5 rounded-full text-white ${data.iconBg}`;
+            iconContainer.innerHTML = `<i data-lucide="${data.icon}" class="w-4 h-4"></i>`;
+
+            const skillNameEl = document.getElementById('skill-name');
+            skillNameEl.className = `text-sm font-bold uppercase tracking-wider ${data.color}`;
+
+            // 3. Update Visuals (Glows & Images)
+            document.getElementById('hero-bg-glow').className = `absolute top-0 right-0 w-1/2 h-full blur-[100px] transition-colors duration-700 ${data.bgGlow}`;
+            document.getElementById('video-preview').style.backgroundImage = `url('${data.videoUrl}')`;
+
+            // Refresh Icons
+            lucide.createIcons();
+
+            // 4. Update Active Avatar State
+            buttons.forEach(btn => {
+                if (btn.getAttribute('onclick').includes(heroKey)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // Fonction pour passer au héros suivant automatiquement
+        function autoSwitchHero() {
+            currentHeroIndex = (currentHeroIndex + 1) % heroKeys.length;
+            changeHero(heroKeys[currentHeroIndex]);
+        }
+
+        // Fonction pour réinitialiser l'intervalle (quand l'utilisateur clique)
+        function resetAutoSwitch() {
+            clearInterval(autoSwitchInterval);
+            autoSwitchInterval = setInterval(autoSwitchHero, 4000);
+        }
+
+        // Démarrer l'auto-switch au chargement de la page
+        autoSwitchInterval = setInterval(autoSwitchHero, 4000);
+    </script>
+</body>
+
+</html>
