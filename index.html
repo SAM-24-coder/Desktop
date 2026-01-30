@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurionverse | Master Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .portal-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .glow {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+    <div class="portal-bg"></div>
+
+    <header class="text-center mb-16 animate-fade-in">
+        <h1 class="cinzel text-5xl md:text-7xl font-black mb-4 tracking-widest text-white uppercase">Aurionverse</h1>
+        <p class="text-neutral-500 uppercase tracking-[0.3em] text-xs md:text-sm">The First African Fantasy Multimedia
+            Experience</p>
+    </header>
+
+    <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl w-full">
+        <!-- Hub Portal -->
+        <a href="LandingPage_Aurionverse.html"
+            class="glass p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 card-hover group">
+            <div
+                class="mb-6 w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="layers" class="w-8 h-8 text-white"></i>
+            </div>
+            <h2 class="cinzel text-xl font-bold mb-2 uppercase tracking-tight">LandingPage</h2>
+            <p class="text-neutral-400 text-sm">Explore the entire Aurionverse universe and lore.</p>
+        </a>
+
+        <!-- Comic LKO -->
+        <a href="landing_AurionLKO.html"
+            class="glass p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 card-hover group">
+            <div
+                class="mb-6 w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="book-open" class="w-8 h-8 text-white"></i>
+            </div>
+            <h2 class="cinzel text-xl font-bold mb-2 uppercase tracking-tight">Legacy Comic</h2>
+            <p class="text-neutral-400 text-sm">The original graphic novel where it all began.</p>
+        </a>
+
+        <!-- PC Game -->
+        <a href="jeupc.html"
+            class="glass p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 card-hover group">
+            <div
+                class="mb-6 w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="monitor" class="w-8 h-8 text-white"></i>
+            </div>
+            <h2 class="cinzel text-xl font-bold mb-2 uppercase tracking-tight">PC Game</h2>
+            <p class="text-neutral-400 text-sm">Experience the epic action RPG on Windows & Xbox.</p>
+        </a>
+
+        <!-- Mobile Game -->
+        <a href="landing_jeumobile.html"
+            class="glass p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 card-hover group">
+            <div
+                class="mb-6 w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="smartphone" class="w-8 h-8 text-white"></i>
+            </div>
+            <h2 class="cinzel text-xl font-bold mb-2 uppercase tracking-tight">Mobile RPG</h2>
+            <p class="text-neutral-400 text-sm">Adventure on the go with Kajuta Gems Fighters.</p>
+        </a>
+
+        <!-- Shop -->
+        <a href="bundleshop.html"
+            class="glass p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 card-hover group">
+            <div
+                class="mb-6 w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="shopping-bag" class="w-8 h-8 text-white"></i>
+            </div>
+            <h2 class="cinzel text-xl font-bold mb-2 uppercase tracking-tight">Bundle Shop</h2>
+            <p class="text-neutral-400 text-sm">Get exclusive digital bundles and support the studio.</p>
+        </a>
+    </main>
+
+    <footer class="mt-24 text-neutral-600 text-xs uppercase tracking-widest text-center">
+        <p>&copy; 2026 Kiro'o Games - The First African RPG Studio</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

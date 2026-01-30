@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurion: Kajuta Gems Fighters - Mobile RPG</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Cinzel:wght@700&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Fredoka', 'sans-serif'],
+                        aurion: ['Cinzel', 'serif'],
+                    },
+                    colors: {
+                        neutral: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827',
+                            950: '#030712',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-neutral-50 text-neutral-900 font-sans">
+
+    <!-- NAV -->
+    <nav class="fixed w-full z-50 bg-white border-b border-neutral-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="text-xl font-bold tracking-tight text-black font-sans">
+                Logo Aurion KGF
+            </a>
+
+            <!-- Right side: Desktop Menu + Icons -->
+            <div class="flex items-center gap-8 ml-auto">
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="LandingPage_Aurionverse.html"
+                        class="text-sm font-bold text-neutral-600 hover:text-black">Home</a>
+                    <a href="bundleshop.html" class="text-sm font-bold text-neutral-600 hover:text-black">Store</a>
+                </div>
+
+                <!-- Icons -->
+                <div class="flex items-center gap-4">
+                    <button class="text-neutral-900 hover:text-neutral-600">
+                        <i data-lucide="user" class="w-6 h-6"></i>
+                    </button>
+                    <button class="text-neutral-900 hover:text-neutral-600">
+                        <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                    </button>
+                    <!-- Mobile Menu Toggle -->
+                    <button class="md:hidden text-neutral-900">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION: POCKET ORIGINS -->
+    <header
+        class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gradient-to-br from-neutral-300 via-neutral-400 to-neutral-500">
+
+        <div class="container mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-12">
+
+            <!-- Text Content -->
+            <div class="lg:w-1/2 space-y-8 text-center lg:text-left">
+                <h1 class="text-5xl lg:text-7xl font-bold font-sans leading-tight text-neutral-900">
+                    The Origins of Aurion<br />
+                    In Your Pocket
+                </h1>
+
+                <p class="text-lg text-neutral-800 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                    Dive into the prequel. Experience Strategic Match-3 Gameplay combined with deep RPG
+                    mechanics. Unleash the Kajuta spirits anywhere, anytime.
+                </p>
+
+                <div class="flex flex-row gap-4 justify-center lg:justify-start">
+                    <button
+                        class="bg-neutral-200 border border-neutral-400 text-black px-6 py-3 font-bold hover:bg-white transition flex flex-col items-start w-40">
+                        <span class="text-[10px] uppercase">Download on</span>
+                        <span class="text-sm">Playstore</span>
+                    </button>
+                    <button
+                        class="bg-neutral-200 border border-neutral-400 text-black px-6 py-3 font-bold hover:bg-white transition flex flex-col items-start w-40">
+                        <span class="text-[10px] uppercase">Download on</span>
+                        <span class="text-sm">Appstore</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Visual (Phone Mockup) -->
+            <div class="lg:w-1/2 flex justify-center">
+                <div
+                    class="relative w-[300px] h-[600px] bg-black rounded-[3rem] border-8 border-neutral-800 shadow-2xl overflow-hidden">
+                    <!-- Screen -->
+                    <div class="absolute inset-0 bg-neutral-600 flex items-center justify-center">
+                        <span class="text-white font-bold uppercase track-widest text-center px-4">Epic Video
+                            Action</span>
+                    </div>
+                    <!-- Home Button -->
+                    <div
+                        class="absolute bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full border-2 border-neutral-700 bg-neutral-900">
+                    </div>
+                    <!-- Speaker -->
+                    <div class="absolute top-6 left-1/2 -translate-x-1/2 w-20 h-2 rounded-full bg-neutral-800"></div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- 2. ASSEMBLE YOUR LEGACY -->
+    <section class="py-24 bg-neutral-800 text-white relative">
+        <div class="container mx-auto px-6 relative z-10">
+
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 font-sans text-white">Assemble Your Legacy</h2>
+                <p class="text-neutral-400 text-sm tracking-wide">Master the flow of Mana. Collect the legends.</p>
+            </div>
+
+            <!-- Selectors -->
+            <div class="flex justify-center gap-4 mb-16">
+                <button onclick="selectHero('enkwo'); resetAutoSwitch();"
+                    class="hero-btn w-16 h-16 rounded-full bg-yellow-400 text-neutral-900 font-bold text-xs flex items-center justify-center border-4 border-neutral-700 shadow-lg scale-110 transition-all duration-300"
+                    data-hero="enkwo">Enkwo</button>
+                <button onclick="selectHero('ewineh'); resetAutoSwitch();"
+                    class="hero-btn w-16 h-16 rounded-full bg-neutral-300 text-neutral-600 font-bold text-xs flex items-center justify-center border-4 border-neutral-600 hover:bg-white transition-all duration-300"
+                    data-hero="ewineh">Ewineh</button>
+                <button onclick="selectHero('ngarba'); resetAutoSwitch();"
+                    class="hero-btn w-16 h-16 rounded-full bg-neutral-300 text-neutral-600 font-bold text-xs flex items-center justify-center border-4 border-neutral-600 hover:bg-white transition-all duration-300"
+                    data-hero="ngarba">Ngarba</button>
+                <button onclick="selectHero('nama'); resetAutoSwitch();"
+                    class="hero-btn w-16 h-16 rounded-full bg-neutral-300 text-neutral-600 font-bold text-xs flex items-center justify-center border-4 border-neutral-600 hover:bg-white transition-all duration-300"
+                    data-hero="nama">Nama</button>
+            </div>
+
+            <!-- Content Area -->
+            <div
+                class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 bg-neutral-700/50 p-8 rounded-3xl">
+
+                <!-- Phone (Left on Desktop, Top on Mobile) -->
+                <div class="w-full md:w-1/2 flex justify-center order-1">
+                    <div
+                        class="relative w-[280px] h-[560px] bg-black rounded-[2.5rem] border-[8px] border-neutral-900 shadow-2xl overflow-hidden">
+                        <!-- Screen -->
+                        <div class="absolute inset-0 bg-neutral-600 flex items-center justify-center text-center p-4">
+                            <div>
+                                <p class="text-white font-bold uppercase mb-2">Autoplay video of Special attacks</p>
+                                <div
+                                    class="w-12 h-12 bg-white/20 rounded-full mx-auto flex items-center justify-center">
+                                    <i data-lucide="play" class="w-6 h-6 text-white ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Home Button -->
+                        <div
+                            class="absolute bottom-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full border-2 border-neutral-700 bg-neutral-800">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Details (Right on Desktop, Bottom on Mobile) -->
+                <div class="w-full md:w-1/2 text-center md:text-right flex flex-col items-center md:items-end order-2">
+                    <h3 id="hero-name"
+                        class="text-4xl md:text-5xl font-bold text-neutral-900 mb-2 transition-opacity duration-300">
+                        Enkwo Kori-Odan</h3>
+                    <p id="hero-title"
+                        class="text-sm font-bold tracking-widest uppercase text-neutral-900 mb-12 transition-opacity duration-300">
+                        THE EXILED KING</p>
+
+                    <div class="mb-12 text-sm font-bold text-white/50 uppercase">
+                        <span id="hero-image-label">Enkwo Pic Pose</span>
+                    </div>
+
+                    <p id="hero-description"
+                        class="text-white text-sm md:text-base leading-relaxed max-w-sm transition-opacity duration-300">
+                        Harnesses the explosive power of Fire. His "Meteor Strike" clears vertical columns and deals
+                        massive damage.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SHOP SECTION -->
+    <section id="shop" class="py-24 bg-gray-500 text-neutral-900">
+        <div class="container mx-auto px-6 bg-gray-500">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 font-sans text-neutral-900">Refuel Your Journey</h2>
+                <p class="text-neutral-500 font-bold text-sm">Buy directly here to get Bonus items vs In-App.</p>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Product 1 -->
+                <div
+                    class="bg-white rounded-xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
+                    <div
+                        class="w-16 h-16 rounded-full border-4 border-neutral-100 flex items-center justify-center mb-4 bg-neutral-50">
+                        <i data-lucide="zap" class="w-8 h-8 text-neutral-400"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-black mb-1">Stack of Energy</h3>
+                    <p class="text-[10px] uppercase font-bold text-neutral-400 mb-4">50 Energy Bolts + 5 Bonus</p>
+                    <span class="text-2xl font-black text-black mb-4">$1.99</span>
+                    <button
+                        class="bg-neutral-800 text-white px-6 py-2 rounded font-bold text-xs uppercase hover:bg-black w-full shadow-sm transition-all duration-200 cursor-pointer">Buy
+                        now</button>
+                </div>
+
+                <!-- Product 2 -->
+                <div
+                    class="bg-white rounded-xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
+                    <div
+                        class="w-16 h-16 rounded-full border-4 border-neutral-100 flex items-center justify-center mb-4 bg-neutral-50">
+                        <i data-lucide="zap" class="w-8 h-8 text-neutral-400"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-black mb-1">Energy Generator</h3>
+                    <p class="text-[10px] uppercase font-bold text-neutral-400 mb-4">250 Energy Bolts + 50 Bonus</p>
+                    <span class="text-2xl font-black text-black mb-4">$9.99</span>
+                    <button
+                        class="bg-neutral-800 text-white px-6 py-2 rounded font-bold text-xs uppercase hover:bg-black w-full shadow-sm transition-all duration-200 cursor-pointer">Buy
+                        now</button>
+                </div>
+
+                <!-- Product 3 -->
+                <div
+                    class="bg-white rounded-xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
+                    <div
+                        class="w-16 h-16 rounded-full border-4 border-neutral-100 flex items-center justify-center mb-4 bg-neutral-50">
+                        <i data-lucide="sword" class="w-8 h-8 text-neutral-400"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-black mb-1">Warrior's AP Pack</h3>
+                    <p class="text-[10px] uppercase font-bold text-neutral-400 mb-4">10 AP Potions</p>
+                    <span class="text-2xl font-black text-black mb-4">$4.99</span>
+                    <button
+                        class="bg-neutral-800 text-white px-6 py-2 rounded font-bold text-xs uppercase hover:bg-black w-full shadow-sm transition-all duration-200 cursor-pointer">Buy
+                        now</button>
+                </div>
+
+                <!-- Product 4 -->
+                <div
+                    class="bg-white rounded-xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
+                    <div
+                        class="w-16 h-16 rounded-full border-4 border-neutral-100 flex items-center justify-center mb-4 bg-neutral-50">
+                        <i data-lucide="package" class="w-8 h-8 text-neutral-400"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-black mb-1">Warlord Bundle</h3>
+                    <p class="text-[10px] uppercase font-bold text-neutral-400 mb-4">Max AP + Max Energy</p>
+                    <span class="text-2xl font-black text-black mb-4">$19.99</span>
+                    <button
+                        class="bg-neutral-800 text-white px-6 py-2 rounded font-bold text-xs uppercase hover:bg-black w-full shadow-sm transition-all duration-200 cursor-pointer">Buy
+                        now</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Hub -->
+    <section class="py-12 bg-neutral-100 border-t border-neutral-200 text-center">
+        <a href="index.html"
+            class="inline-block px-10 py-4 bg-black text-white font-bold uppercase tracking-widest text-sm rounded hover:bg-neutral-800 transition-all duration-300 transform hover:-translate-y-1">
+            Back to Master Hub
+        </a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-8 border-t border-neutral-900">
+        <div class="container mx-auto px-6 text-center">
+            <div class="text-2xl font-black tracking-tighter text-white mb-4 font-sans uppercase">
+                Logo Aurion<br>KGF
+            </div>
+            <div class="text-neutral-600 text-xs">
+                &copy; <span id="year"></span> Kiro'o Games.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+        document.getElementById('year').innerText = new Date().getFullYear();
+
+        // Hero Data
+        const heroesData = {
+            'enkwo': {
+                name: 'Enkwo Kori-Odan',
+                title: 'THE EXILED KING',
+                imageLabel: 'Enkwo Pic Pose',
+                description: 'Harnesses the explosive power of Fire. His "Meteor Strike" clears vertical columns and deals massive damage.',
+                color: 'bg-yellow-400',
+                textColor: 'text-neutral-900'
+            },
+            'ewineh': {
+                name: 'Ewineh Kori-Odan',
+                title: 'THE LIGHT OF ZAMA',
+                imageLabel: 'Ewineh Pic Pose',
+                description: 'Master of Healing Arts. She converts Gems into Health Potions and supports the team with defensive buffers.',
+                color: 'bg-green-400',
+                textColor: 'text-neutral-900'
+            },
+            'ngarba': {
+                name: 'Ngarba Evou',
+                title: 'THE IRON WALL',
+                imageLabel: 'Ngarba Pic Pose',
+                description: 'Unstoppable Defense. Accumulates shields with Blue Gems and reflects damage back to attackers.',
+                color: 'bg-blue-400',
+                textColor: 'text-neutral-900'
+            },
+            'nama': {
+                name: "Ju'u Nama Yode",
+                title: 'THE GRANDMASTER',
+                imageLabel: 'Nama Pic Pose',
+                description: 'Wielder of Void Energy. Manipulates the board by reshuffling Gems and creating chaotic combos.',
+                color: 'bg-purple-400',
+                textColor: 'text-neutral-900'
+            }
+        };
+
+        // Current hero tracking
+        const heroKeys = ['enkwo', 'ewineh', 'ngarba', 'nama'];
+        let currentHeroIndex = 0;
+        let autoSwitchInterval;
+
+        // Function to select a hero
+        function selectHero(heroKey) {
+            const hero = heroesData[heroKey];
+            if (!hero) return;
+
+            // Update current index
+            currentHeroIndex = heroKeys.indexOf(heroKey);
+
+            // Update text content with fade effect
+            const heroName = document.getElementById('hero-name');
+            const heroTitle = document.getElementById('hero-title');
+            const heroImageLabel = document.getElementById('hero-image-label');
+            const heroDescription = document.getElementById('hero-description');
+
+            // Fade out
+            heroName.style.opacity = '0';
+            heroTitle.style.opacity = '0';
+            heroDescription.style.opacity = '0';
+
+            setTimeout(() => {
+                // Update content
+                heroName.textContent = hero.name;
+                heroTitle.textContent = hero.title;
+                heroImageLabel.textContent = hero.imageLabel;
+                heroDescription.textContent = hero.description;
+
+                // Fade in
+                heroName.style.opacity = '1';
+                heroTitle.style.opacity = '1';
+                heroDescription.style.opacity = '1';
+            }, 150);
+
+            // Update button states
+            const buttons = document.querySelectorAll('.hero-btn');
+            buttons.forEach(btn => {
+                const btnHero = btn.getAttribute('data-hero');
+                if (btnHero === heroKey) {
+                    btn.className = `hero-btn w-16 h-16 rounded-full ${hero.color} ${hero.textColor} font-bold text-xs flex items-center justify-center border-4 border-neutral-700 shadow-lg scale-110 transition-all duration-300`;
+                } else {
+                    btn.className = 'hero-btn w-16 h-16 rounded-full bg-neutral-300 text-neutral-600 font-bold text-xs flex items-center justify-center border-4 border-neutral-600 hover:bg-white transition-all duration-300';
+                }
+            });
+        }
+
+        // Auto-switch to next hero
+        function autoSwitchHero() {
+            currentHeroIndex = (currentHeroIndex + 1) % heroKeys.length;
+            selectHero(heroKeys[currentHeroIndex]);
+        }
+
+        // Reset auto-switch interval
+        function resetAutoSwitch() {
+            clearInterval(autoSwitchInterval);
+            autoSwitchInterval = setInterval(autoSwitchHero, 4000);
+        }
+
+        // Start auto-switch on page load
+        autoSwitchInterval = setInterval(autoSwitchHero, 4000);
+    </script>
+</body>
+
+</html>

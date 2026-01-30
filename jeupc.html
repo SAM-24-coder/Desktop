@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurion: Legacy of the Kori-Odan - The Action RPG</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#e5e5e5',
+                            DEFAULT: '#737373',
+                            dark: '#171717',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Styles spécifiques pour le Slider Avant/Après */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .slider-handle-line {
+            position: absolute;
+            z-index: 20;
+            background: #ffffff;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Mobile Version (Horizontal line moving vertically) */
+        @media (max-width: 767px) {
+            .slider-handle-line {
+                left: 0;
+                right: 0;
+                height: 4px;
+            }
+        }
+
+        /* Desktop Version (Vertical line moving horizontally) */
+        @media (min-width: 768px) {
+            .slider-handle-line {
+                top: 0;
+                bottom: 0;
+                width: 4px;
+            }
+        }
+
+        .slider-button {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            border: 3px solid #171717;
+            z-index: 21;
+        }
+
+        /* Masquer l'input range par défaut mais garder la fonctionnalité */
+        input[type=range].slider-input {
+            -webkit-appearance: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: ew-resize;
+            z-index: 30;
+        }
+
+        @media (max-width: 767px) {
+            input[type=range].slider-input {
+                transform: rotate(90deg);
+                cursor: ns-resize;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #171717;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #525252;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a3a3a3;
+        }
+
+        /* Sticky Header Animation */
+        .main_h {
+            position: fixed;
+            top: 0px;
+            z-index: 999;
+            width: 100%;
+            background: none;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+            opacity: 1;
+            /* Visible by default */
+        }
+
+        .main_h.sticky {
+            background: rgba(23, 23, 23, 0.98);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Grayscale Filter for Images/Videos */
+        .grayscale-media {
+            filter: grayscale(100%);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-neutral-950 text-neutral-100 font-sans selection:bg-neutral-500 selection:text-white bg-cover bg-center bg-no-repeat bg-fixed"
+    style="background-image: url('https://aurionthegame.com/assets/bg-home.png'); filter: grayscale(100%);">
+
+    <!-- Wrapper to reset filter for content if needed, but body filter applies to all. 
+         Ideally, we apply filter to bg only, but inline style on body affects children. 
+         Let's move bg image to a div.
+    -->
+    <div class="fixed inset-0 z-[-1] bg-cover bg-center bg-no-repeat"
+        style="background-image: url('https://aurionthegame.com/assets/bg-home.png'); filter: grayscale(100%) brightness(0.4);">
+    </div>
+
+    <!-- NAV -->
+    <nav class="main_h fixed w-full z-50 backdrop-blur-md border-b border-neutral-800 transition-all duration-300"
+        id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <a href="index.html"
+                    class="text-xl font-bold tracking-tighter text-white font-serif filter grayscale brightness-200">
+                    <img src="https://d1yei2z3i6k35z.cloudfront.net/1015683/6442575d8baa5_logo_kiroo.png"
+                        alt="Kiro'o Games" class="h-8">
+                </a>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="LandingPage_Aurionverse.html"
+                    class="text-xs font-bold text-neutral-400 hover:text-white transition uppercase tracking-widest">Home</a>
+                <a href="bundleshop.html"
+                    class="text-xs font-bold text-neutral-400 hover:text-white transition uppercase tracking-widest">Store</a>
+                <div class="flex items-center gap-4 text-neutral-400 border-l border-neutral-700 pl-6">
+                    <i data-lucide="user" class="w-5 h-5 hover:text-white cursor-pointer transition"></i>
+                    <i data-lucide="shopping-cart" class="w-5 h-5 hover:text-white cursor-pointer transition"></i>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-black border-t border-neutral-800 absolute w-full left-0 top-full">
+            <div class="flex flex-col p-6 gap-4">
+                <a href="LandingPage_Aurionverse.html"
+                    class="text-sm font-bold text-neutral-400 hover:text-white uppercase tracking-widest">Home</a>
+                <a href="bundleshop.html"
+                    class="text-sm font-bold text-neutral-400 hover:text-white uppercase tracking-widest">Store</a>
+                <div class="h-px bg-neutral-800 w-full my-2"></div>
+                <div class="flex items-center gap-4 text-neutral-400">
+                    <span class="flex items-center gap-2"><i data-lucide="user" class="w-5 h-5"></i> Account</span>
+                </div>
+                <div class="flex items-center gap-4 text-neutral-400">
+                    <span class="flex items-center gap-2"><i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        Cart</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION -->
+    <header class="relative h-[85vh] md:h-screen flex items-center justify-center overflow-hidden">
+        <!-- Video Background Simulation -->
+        <div class="absolute inset-0 z-0">
+            <!-- Overlay Gradient -->
+            <div class="absolute inset-0 bg-neutral-950/80 z-10"></div>
+            <!-- Placeholder for Video Loop -->
+            <video class="absolute inset-0 hero-video grayscale opacity-40" autoplay muted loop playsinline
+                preload="metadata">
+                <source src="https://d1yei2z3i6k35z.cloudfront.net/1015683/6447f9426539e_scope2_web.mp4"
+                    type="video/mp4">
+            </video>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-20 text-center mt-32">
+            <h1
+                class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight tracking-wider font-sans text-white uppercase opacity-90">
+                You read the story
+            </h1>
+            <h2
+                class="text-4xl md:text-6xl lg:text-7xl font-bold mb-12 leading-tight tracking-wider font-sans text-white uppercase">
+                Now Master It
+            </h2>
+
+            <p class="text-xs text-neutral-500 uppercase tracking-[0.3em] mb-24 max-w-2xl mx-auto">
+                The first African-Fantasy Action RPG. Become Enkwo Kori-Odan.
+            </p>
+
+            <h3 class="text-3xl md:text-5xl font-bold text-neutral-600 uppercase tracking-tighter mb-16 select-none">
+                Bg : EPIC ANIMATED BATTLE SCENES
+            </h3>
+
+            <div class="flex flex-col items-center gap-6">
+                <!-- Main CTA -->
+                <a href="#pricing"
+                    class="bg-neutral-200 hover:bg-white text-black px-8 py-3 rounded-sm font-bold text-sm tracking-widest uppercase transition shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transform hover:-translate-y-1 duration-300">
+                    Get the Legacy
+                </a>
+
+                <!-- Platforms -->
+                <div
+                    class="hidden md:flex items-center gap-3 text-neutral-500 text-[10px] uppercase tracking-widest mt-4">
+                    <span class="text-xs">Also available on major platforms :</span>
+                    <a href="#" class="text-xs hover:text-white transition flex items-center gap-1.5 group">
+                        STEAM <i data-lucide="monitor" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="#" class="text-xs hover:text-white transition flex items-center gap-1.5 group">
+                        XBOX <i data-lucide="gamepad-2" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. TRAILER MOCKUP -->
+    <section class="py-24 bg-neutral-300 relative">
+        <div class="container mx-auto px-6 relative z-10 flex justify-center">
+            <div
+                class="w-full max-w-4xl h-[300px] md:h-auto md:aspect-video bg-neutral-300 border-4 border-white shadow-xl flex flex-col items-center justify-center relative group cursor-pointer transition hover:scale-[1.01]">
+                <div
+                    class="w-24 h-24 rounded-full bg-neutral-400/80 flex items-center justify-center backdrop-blur-sm group-hover:bg-neutral-800/80 transition duration-500 mb-6 z-10">
+                    <i data-lucide="play"
+                        class="w-10 h-10 text-neutral-800 fill-neutral-800 group-hover:text-white group-hover:fill-white ml-2"></i>
+                </div>
+                <div class="absolute inset-0 bg-neutral-900/10 group-hover:bg-transparent transition"></div>
+                <h3
+                    class="text-xl md:text-3xl font-black text-neutral-800 uppercase tracking-tighter opacity-80 group-hover:opacity-100 z-10">
+                    Watch the official trailer</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. REALITY CHECK: SLIDER -->
+    <section id="reality-check" class="py-24 bg-neutral-200 text-neutral-900 border-t border-neutral-300">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-sans uppercase tracking-tight text-neutral-900">From
+                    Panel to Pixel</h2>
+                <p class="text-neutral-600 max-w-xl mx-auto text-sm font-medium">
+                    Experience the Aurion in Real-Time. Every strike, every spell, every movement is now under YOUR
+                    control.
+                </p>
+            </div>
+
+            <!-- Custom Interactive Slider -->
+            <div
+                class="relative w-full max-w-4xl mx-auto aspect-[3/4] md:aspect-video shadow-2xl shadow-neutral-900/20 slider-container group bg-neutral-400">
+
+                <!-- BACKGROUND IMAGE (GAMEPLAY / AFTER) -->
+                <div class="absolute inset-0 bg-neutral-600 flex items-center justify-center grayscale">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-neutral-800 mb-2">In-Game Action</h3>
+                    </div>
+                </div>
+
+                <!-- FOREGROUND IMAGE (COMIC / BEFORE) - CLIPPED -->
+                <div id="slider-foreground"
+                    class="absolute inset-0 bg-neutral-300 overflow-hidden border-b-4 md:border-b-0 md:border-r-4 border-white"
+                    style="height: 50%; width: 100%;">
+                    <div class="absolute inset-0 w-full h-full flex items-center justify-center">
+                        <h3 class="text-2xl font-bold text-neutral-500 mb-2">Graphic Novel</h3>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 bg-white text-black px-1.5 py-0.5 md:px-2 md:py-1 text-[8px] md:text-[10px] font-bold uppercase z-10">Graphic
+                        Novel</span>
+                </div>
+
+                <!-- HANDLER VISUALS -->
+                <div id="slider-handle" class="slider-handle-line" style="top: 50%;">
+                    <div class="slider-button">
+                        <i data-lucide="chevrons-up-down" class="md:hidden w-4 h-4 text-neutral-500"></i>
+                        <i data-lucide="chevrons-left-right" class="hidden md:block w-4 h-4 text-neutral-500"></i>
+                    </div>
+                </div>
+
+                <span
+                    class="absolute bottom-4 right-4 bg-white text-black px-1.5 py-0.5 md:px-2 md:py-1 text-[8px] md:text-[10px] font-bold uppercase z-10">In-Game
+                    Action</span>
+
+                <!-- ACTUAL INPUT RANGE (INVISIBLE) -->
+                <input type="range" min="0" max="100" value="50" class="slider-input" id="slider-input">
+            </div>
+
+            <p class="text-center text-[10px] text-neutral-500 mt-6 uppercase tracking-widest">
+                Drag the handle to see the transformation.
+            </p>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: STRATEGIC COMBAT -->
+    <section class="py-10 bg-neutral-300 text-neutral-900 border-t border-neutral-400">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-5xl font-black mb-4 font-sans text-neutral-900 tracking-tight uppercase">
+                    The Art of Aurionic Combat
+                </h2>
+                <p class="text-neutral-700 text-sm md:text-base font-medium uppercase tracking-widest">
+                    Forget the brawl, experience a martial dialogue. Every blow is an emotion, every duel a quest for
+                    truth.
+                </p>
+            </div>
+
+
+            <!-- Single Big Card -->
+
+            <!-- Media Placeholder (Large) -->
+            <div
+                class="aspect-video md:aspect-[16/7] bg-neutral-500 rounded-xl mb-8 overflow-hidden relative group cursor-pointer video-hover-container shadow-inner">
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                </div>
+                <video
+                    class="w-full h-50 object-cover grayscale opacity-50 group-hover:opacity-100 transition duration-500"
+                    muted loop playsinline poster="https://aurionthegame.com/assets/bg-home.png">
+                    <source src="https://d1yei2z3i6k35z.cloudfront.net/1015683/6447f9426539e_scope2_web.mp4"
+                        type="video/mp4">
+                </video>
+            </div>
+
+            <!-- Content -->
+            <div class="text-center text-neutral-900 max-w-4xl mx-auto">
+                <p class="text-sm md:text-lg text-neutral-800 leading-relaxed font-medium">
+                    Master the <strong>Legacy Combos</strong>, fuse the <strong>Aurion Elements</strong>, and summon
+                    the <strong>Sacred Union</strong> to victory.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. QUOTE -->
+    <section class="py-24 bg-neutral-200 flex items-center justify-center">
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <i data-lucide="quote" class="w-16 h-16 text-neutral-800 mx-auto mb-8 fill-neutral-800"></i>
+
+            <h3 class="text-xl font-bold text-neutral-400 uppercase mb-4">Bg: ARTWORK: Emotional Couple Scene</h3>
+
+            <blockquote
+                class="text-3xl md:text-5xl font-bold text-neutral-900 mb-6 max-w-4xl mx-auto leading-tight font-sans tracking-tight">
+                "From the Heart of Africa,<br />
+                An Action Video Game With Soul."
+            </blockquote>
+            <cite class="text-neutral-900 font-bold tracking-widest uppercase not-italic text-sm block mb-12">-
+                KOTAKU</cite>
+
+            <p class="text-sm text-neutral-600 max-w-xl mx-auto leading-relaxed font-medium">
+                20+ hours of gameplay. A profound reflection on power, exile, and humanity.
+                The story you loved in the books finds its <strong class="text-black">epic conclusion</strong> here.
+            </p>
+        </div>
+    </section>
+
+    <!-- 5. BUNDLE (PRICING) -->
+    <section id="pricing" class="py-24 bg-neutral-300 border-t border-neutral-400">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-black uppercase tracking-tight">The Ultimate Legacy
+                    Collection</h2>
+            </div>
+
+            <!-- SINGLE MEGA CARD -->
+            <div
+                class="max-w-4xl mx-auto bg-neutral-200 border border-neutral-400 flex flex-col md:flex-row shadow-2xl">
+
+                <!-- Left: Visuals -->
+                <div
+                    class="w-full md:w-2/5 bg-neutral-300 relative p-12 flex flex-col justify-center items-center border-b md:border-b-0 md:border-r border-neutral-400">
+                    <!-- Mockup of Bundle -->
+                    <div
+                        class="relative w-40 h-56 bg-neutral-400 border border-neutral-500 rounded-sm shadow-xl flex items-center justify-center text-center p-4">
+                        <span class="text-xs font-bold text-neutral-600 uppercase">Image of the book</span>
+
+                        <!-- Stack effect -->
+                        <div
+                            class="absolute -z-10 top-2 left-2 w-full h-full bg-neutral-400 border border-neutral-500 rounded-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Content -->
+                <div class="w-full md:w-3/5 p-8 flex flex-col justify-center text-left">
+                    <h3 class="text-2xl font-bold text-neutral-800 mb-2 font-sans uppercase">Official Aurion Mega Bundle
+                    </h3>
+                    <p class="text-xs text-neutral-600 mb-8 max-w-xs">The complete experience directly from us. Support
+                        the creators.</p>
+
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center gap-3 bg-white p-2 rounded border border-neutral-300 shadow-sm">
+                            <i data-lucide="gamepad-2" class="text-black w-4 h-4 shrink-0"></i>
+                            <div>
+                                <span class="block text-black font-bold text-[10px] uppercase">Full Game (PC)</span>
+                                <span class="block text-neutral-500 text-[9px]">DRM-Free / Steam</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 bg-white p-2 rounded border border-neutral-300 shadow-sm">
+                            <i data-lucide="music" class="text-black w-4 h-4 shrink-0"></i>
+                            <div>
+                                <span class="block text-black font-bold text-[10px] uppercase">Original
+                                    Soundtrack</span>
+                                <span class="block text-neutral-500 text-[9px]">High Quality Audio</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 bg-white p-2 rounded border border-neutral-300 shadow-sm">
+                            <i data-lucide="book" class="text-black w-4 h-4 shrink-0"></i>
+                            <div>
+                                <span class="block text-black font-bold text-[10px] uppercase">Digital Artbook</span>
+                                <span class="block text-neutral-500 text-[9px]">Exclusive Lore & Art</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 bg-white p-2 rounded border border-neutral-300 shadow-sm">
+                            <i data-lucide="smartphone" class="text-black w-4 h-4 shrink-0"></i>
+                            <div>
+                                <span class="block text-black font-bold text-[10px] uppercase">Mobile Wallpapers</span>
+                                <span class="block text-neutral-500 text-[9px]">For your phone</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-end border-t border-neutral-400 pt-6">
+                        <div>
+                            <span class="text-neutral-500 line-through text-xs block font-bold">$30.00</span>
+                            <span class="text-3xl font-black text-black">$39.99</span>
+                        </div>
+                        <button
+                            class="bg-neutral-300 hover:bg-neutral-400 text-black border border-neutral-400 py-3 px-6 rounded shadow-sm font-bold text-xs uppercase tracking-wider transition flex items-center gap-2">
+                            Get it now!
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. NEW SECTION: REVIEWS -->
+    <section class="py-16 bg-neutral-200 border-t border-neutral-300 text-neutral-800">
+        <div class="container mx-auto px-6">
+            <h2
+                class="text-2xl font-bold mb-8 font-sans uppercase text-black tracking-tight border-b-2 border-black pb-2 block mx-auto w-fit text-center">
+                Voices of the Kori-Odan</h2>
+            <p class="text-xs text-neutral-500 mb-12 uppercase tracking-widest text-center">Join thousands of players in
+                the
+                Aurionverse.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Review 1 -->
+                <div class="bg-neutral-600 p-6 rounded text-white relative">
+                    <i data-lucide="quote" class="absolute top-4 right-4 w-6 h-6 text-neutral-400 fill-neutral-400"></i>
+                    <p class="text-neutral-200 text-xs italic mb-4 leading-relaxed">"The combat system is deeper than
+                        most AAA titles. It rewards skill."</p>
+                    <div
+                        class="absolute bottom-4 left-6 text-[10px] font-bold uppercase tracking-widest text-neutral-300">
+                        Tamara Doe
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-neutral-600 p-6 rounded text-white relative">
+                    <i data-lucide="quote" class="absolute top-4 right-4 w-6 h-6 text-neutral-400 fill-neutral-400"></i>
+                    <p class="text-neutral-200 text-xs italic mb-4 leading-relaxed">"The combat system is deeper than
+                        most AAA titles. It rewards skill."</p>
+                    <div
+                        class="absolute bottom-4 left-6 text-[10px] font-bold uppercase tracking-widest text-neutral-300">
+                        Tamara Doe
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-neutral-600 p-6 rounded text-white relative">
+                    <i data-lucide="quote" class="absolute top-4 right-4 w-6 h-6 text-neutral-400 fill-neutral-400"></i>
+                    <p class="text-neutral-200 text-xs italic mb-4 leading-relaxed">"The combat system is deeper than
+                        most AAA titles. It rewards skill."</p>
+                    <div
+                        class="absolute bottom-4 left-6 text-[10px] font-bold uppercase tracking-widest text-neutral-300">
+                        Tamara Doe
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Hub -->
+    <section class="py-12 bg-neutral-900 border-t border-neutral-800 text-center">
+        <a href="index.html"
+            class="inline-block px-10 py-4 bg-white text-black font-black uppercase tracking-widest text-sm rounded-sm hover:bg-neutral-200 transition-all duration-300 transform hover:-translate-y-1">
+            Back to Master Hub
+        </a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-6 border-t border-neutral-900">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <div class="text-xl font-bold tracking-tighter text-white font-sans">Aurion</div>
+                <p
+                    class="text-neutral-500 text-[10px] uppercase tracking-widest hidden md:block border-l border-neutral-800 pl-4">
+                    Kiro'o Games is the first African RPG Studio.
+                </p>
+            </div>
+            <div class="text-[10px] text-neutral-500 uppercase tracking-widest">
+                &copy; <span id="year"></span> Kiro'o Games. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // 1. Initialize Icons
+        lucide.createIcons();
+
+        // 2. Set Year
+        document.getElementById('year').innerText = new Date().getFullYear();
+
+        // 3. Slider Logic
+        const sliderInput = document.getElementById('slider-input');
+        const sliderForeground = document.getElementById('slider-foreground');
+        const sliderHandle = document.getElementById('slider-handle');
+
+        sliderInput.addEventListener('input', function (e) {
+            const value = e.target.value;
+            if (window.innerWidth < 768) {
+                // Mobile: Vertical movement
+                sliderForeground.style.height = value + '%';
+                sliderForeground.style.width = '100%';
+                sliderHandle.style.top = value + '%';
+                sliderHandle.style.left = '0';
+            } else {
+                // Desktop: Horizontal movement
+                sliderForeground.style.width = value + '%';
+                sliderForeground.style.height = '100%';
+                sliderHandle.style.left = value + '%';
+                sliderHandle.style.top = '0';
+            }
+        });
+
+        // Initialize slider position for mobile on load/resize
+        function initSlider() {
+            const value = sliderInput.value;
+            if (window.innerWidth < 768) {
+                sliderForeground.style.height = value + '%';
+                sliderForeground.style.width = '100%';
+                sliderHandle.style.top = value + '%';
+                sliderHandle.style.left = '0';
+            } else {
+                sliderForeground.style.width = value + '%';
+                sliderForeground.style.height = '100%';
+                sliderHandle.style.left = value + '%';
+                sliderHandle.style.top = '0';
+            }
+        }
+        window.addEventListener('resize', initSlider);
+        initSlider();
+
+        // 4. Sticky Header Animation on Scroll
+        window.addEventListener('scroll', function () {
+            const mainHeader = document.querySelector('.main_h');
+
+            if (window.scrollY > 100) {
+                mainHeader.classList.add('sticky');
+            } else {
+                mainHeader.classList.remove('sticky');
+            }
+        });
+
+        // 5. Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                // Toggle icon
+                const icon = mobileMenu.classList.contains('hidden') ? 'menu' : 'x';
+                // We would need to replace the lucide icon, but simpler is to just toggle class
+                // For now, let's just keep it simple logic or re-render icon if needed
+                // But since lucide renders SVG, we can't easily change "data-lucide" attribute dynamically without re-running createIcons
+                // So we'll skip icon change for MVP or add logic to swap SVG content
+            });
+        }
+
+        // 6. Video Hover Logic
+        const videoContainers = document.querySelectorAll('.video-hover-container');
+
+        videoContainers.forEach(container => {
+            const video = container.querySelector('video');
+            if (video) {
+                container.addEventListener('mouseenter', () => {
+                    video.play();
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0; // Optional: Reset to start
+                });
+            }
+        });
+
+    </script>
+</body>
+
+</html>

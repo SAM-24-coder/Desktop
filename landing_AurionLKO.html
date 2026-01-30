@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurion - Book Collection</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Carousel container */
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .carousel-item {
+            flex: 0 0 auto;
+        }
+
+        /* ===== TESTIMONIALS SECTION ===== */
+        .testimonials-section {
+            padding: 3rem 0;
+            background: var(--color-white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .testimonial-card {
+            aspect-ratio: 1;
+            background: var(--color-gray-200);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-900 font-sans">
+
+    <!-- NAVIGATION -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-gray-900">
+                    <a href="index.html">Aurion</a>
+                </div>
+
+                <!-- Right side: Desktop Menu + Icons -->
+                <div class="flex items-center gap-8 ml-auto">
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex items-center gap-8">
+                        <a href="bundleshop.html" class="text-gray-700 hover:text-gray-900 font-medium">Store</a>
+                    </div>
+
+                    <!-- Icons -->
+                    <div class="flex items-center gap-4">
+                        <button class="text-gray-700 hover:text-gray-900">
+                            <i data-lucide="user" class="w-6 h-6"></i>
+                        </button>
+                        <button class="text-gray-700 hover:text-gray-900">
+                            <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                        </button>
+                        <!-- Mobile Menu Toggle -->
+                        <button class="md:hidden text-gray-700">
+                            <i data-lucide="menu" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="bg-gray-100 py-16 md:py-24">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <!-- Text Content -->
+                <div class="md:w-1/2 space-y-6">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                        YOU SURVIVED<br>
+                        THE EXILE<br>
+                        NOW FACE<br>
+                        THE TRUTH
+                    </h1>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                        The journey of Enkwo and Ewineh intensifies in Volumes 4 to 9.
+                        The Kori-Odan legacy is darker, deeper, and more dangerous than you think.
+                        Are you ready for the existential war?
+                    </p> <br>
+                    <p class="text-gray-400 text-base md:text-lg leading-relaxed">bg: Animated Video</p>
+                    <div class="hidden md:flex flex-col sm:flex-row gap-4">
+                        <button
+                            class="bg-gray-900 text-white px-8 py-3 rounded hover:bg-gray-800 transition font-medium">
+                            Get Volume 4
+                        </button>
+                        <button
+                            class="bg-white border-2 border-gray-900 text-gray-900 px-8 py-3 rounded hover:bg-gray-50 transition font-medium">
+                            View Full Collection
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Book Image -->
+                <div class="md:w-1/2 flex justify-center w-full">
+                    <div
+                        class="w-1/2 md:w-full max-w-sm md:max-w-md bg-gray-300 rounded-lg shadow-xl aspect-[2/3] flex items-center justify-center text-gray-500">
+                        Image of the book
+                    </div>
+                </div>
+
+                <!-- Mobile Buttons (Below Image) -->
+                <!-- Mobile Buttons (Below Image) -->
+                <div class="flex md:hidden flex-row gap-2 w-full mt-4">
+                    <button
+                        class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-800 transition font-medium text-xs flex-1">
+                        Get Volume 4
+                    </button>
+                    <button
+                        class="bg-white border-2 border-gray-900 text-gray-900 px-4 py-2 rounded hover:bg-gray-50 transition font-medium text-xs flex-1">
+                        View Full Collection
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMBINED: ANIMATED VIDEO + COMIC STRIP SECTION -->
+    <section class="bg-gray-200 py-20">
+        <div class="container mx-auto px-6">
+            <!-- Comic Strip -->
+            <div>
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                        Epic Animated Comic Strip
+                    </h2>
+
+                </div>
+
+                <!-- Comic Placeholder -->
+                <div class="w-full h-96 bg-gray-300 rounded-lg flex items-center justify-center text-gray-500 text-lg">
+                    Animated comic panels <br>
+                    Here we'll have animated panels from the comic book.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPLETE YOUR COLLECTION -->
+    <section class="bg-gray-800 text-white py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Complete Your Collection
+                </h2>
+                <p class="text-gray-300">
+                    Experience the saga in arcs. Best enjoyed in order.
+                </p>
+                <p>Arc 1: The Awakening (Volumes 1-3)</p>
+            </div>
+
+            <!-- ARC 2: ZAMA -->
+            <div class="mb-20">
+                <h3 class="text-2xl font-bold mb-8 text-center">Arc 2: ZAMA</h3>
+                <div class="relative group">
+                    <!-- Left Arrow -->
+                    <button
+                        class="carousel-prev absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white text-gray-900 w-10 h-10 rounded-full flex md:hidden items-center justify-center hover:bg-gray-100 transition z-10 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+
+                    <!-- Carousel -->
+                    <div class="carousel-container overflow-hidden">
+                        <div class="carousel-track flex transition-transform duration-300 ease-in-out gap-6"
+                            data-total="3">
+                            <!-- Volume 4 -->
+                            <div class="carousel-item w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] flex-shrink-0">
+                                <div class="flex flex-col">
+                                    <div
+                                        class="bg-gray-600 rounded-lg aspect-[2/3] mb-4 flex items-center justify-center text-gray-300">
+                                        Book 4
+                                    </div>
+                                    <button
+                                        class="bg-gray-700 hover:bg-gray-600 text-white py-3 rounded font-medium transition w-full">
+                                        Get Volume 4
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Volume 5 -->
+                            <div class="carousel-item w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] flex-shrink-0">
+                                <div class="flex flex-col">
+                                    <div
+                                        class="bg-gray-600 rounded-lg aspect-[2/3] mb-4 flex items-center justify-center text-gray-300">
+                                        Book 5
+                                    </div>
+                                    <button
+                                        class="bg-gray-700 hover:bg-gray-600 text-white py-3 rounded font-medium transition w-full">
+                                        Get Volume 5
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Volume 6 -->
+                            <div class="carousel-item w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] flex-shrink-0">
+                                <div class="flex flex-col">
+                                    <div
+                                        class="bg-gray-600 rounded-lg aspect-[2/3] mb-4 flex items-center justify-center text-gray-300">
+                                        Book 6
+                                    </div>
+                                    <button
+                                        class="bg-gray-700 hover:bg-gray-600 text-white py-3 rounded font-medium transition w-full">
+                                        Get Volume 6
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Arrow -->
+                    <button
+                        class="carousel-next absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white text-gray-900 w-10 h-10 rounded-full flex md:hidden items-center justify-center hover:bg-gray-100 transition z-10 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ARC 3: BIDIO -->
+            <div>
+                <h3 class="text-2xl font-bold mb-8 text-center">Arc 3: BIDIO</h3>
+
+                <div class="relative group">
+                    <!-- Left Arrow -->
+                    <button
+                        class="carousel-prev absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white text-gray-900 w-10 h-10 rounded-full flex md:hidden items-center justify-center hover:bg-gray-100 transition z-10 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+
+                    <!-- Carousel -->
+                    <div class="carousel-container overflow-hidden">
+                        <div class="carousel-track flex transition-transform duration-300 ease-in-out gap-6"
+                            data-total="4">
+                            <!-- Volume 7 -->
+                            <div class="carousel-item w-[calc(50%-12px)] md:w-[calc(25%-18px)] flex-shrink-0">
+                                <div class="flex flex-col">
+                                    <div
+                                        class="bg-gray-600 rounded-lg aspect-[2/3] mb-4 flex items-center justify-center text-gray-300">
+                                        Book 7
+                                    </div>
+                                    <button
+                                        class="bg-gray-700 hover:bg-gray-600 text-white py-3 rounded font-medium transition w-full">
+                                        Get Volume 7
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Volume 8 -->
+                            <div class="carousel-item w-[calc(50%-12px)] md:w-[calc(25%-18px)] flex-shrink-0">
+                                <div class="flex flex-col">
+                                    <div
+                                        class="bg-gray-600 rounded-lg aspect-[2/3] mb-4 flex items-center justify-center text-gray-300">
+                                        Book 8
+                                    </div>
+                                    <button
+                                        class="bg-gray-700 hover:bg-gray-600 text-white py-3 rounded font-medium transition w-full">
+                                        Get Volume 8
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Volume 9 -->
+                            <div class="carousel-item w-[calc(50%-12px)] md:w-[calc(25%-18px)] flex-shrink-0">
+                                <div class="flex flex-col">
+                                    <div
+                                        class="bg-gray-600 rounded-lg aspect-[2/3] mb-4 flex items-center justify-center text-gray-300">
+                                        Book 9
+                                    </div>
+                                    <button
+                                        class="bg-gray-700 hover:bg-gray-600 text-white py-3 rounded font-medium transition w-full">
+                                        Get Volume 9
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Volume 10 -->
+                            <div class="carousel-item w-[calc(50%-12px)] md:w-[calc(25%-18px)] flex-shrink-0">
+                                <div class="flex flex-col">
+                                    <div
+                                        class="bg-gray-600 rounded-lg aspect-[2/3] mb-4 flex items-center justify-center text-gray-300">
+                                        Book 10
+                                    </div>
+                                    <button
+                                        class="bg-gray-700 hover:bg-gray-600 text-white py-3 rounded font-medium transition w-full">
+                                        Get Volume 10
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Arrow -->
+                    <button
+                        class="carousel-next absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white text-gray-900 w-10 h-10 rounded-full flex md:hidden items-center justify-center hover:bg-gray-100 transition z-10 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+    </section>
+
+    <!-- REVIEWS SECTION -->
+    <section class="bg-gray-100 py-20">
+        <div class="container mx-auto px-6">
+            <!-- Rating Header -->
+            <div class="text-center mb-12">
+                <div class="flex justify-center gap-1 mb-4">
+                    <i data-lucide="star" class="w-8 h-8 text-yellow-500 fill-yellow-500"></i>
+                    <i data-lucide="star" class="w-8 h-8 text-yellow-500 fill-yellow-500"></i>
+                    <i data-lucide="star" class="w-8 h-8 text-yellow-500 fill-yellow-500"></i>
+                    <i data-lucide="star" class="w-8 h-8 text-yellow-500 fill-yellow-500"></i>
+                    <i data-lucide="star" class="w-8 h-8 text-yellow-500 fill-yellow-500"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-2">
+                    4.9/5 Average Rating on Amazon
+                </h2>
+                <p class="text-gray-600">Based on verified purchases</p>
+            </div>
+
+            <!-- Review Carousel -->
+            <div class="relative group">
+                <!-- Left Arrow (Mobile Only) -->
+                <button
+                    class="carousel-prev absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white text-gray-900 w-10 h-10 rounded-full flex md:hidden items-center justify-center hover:bg-gray-100 transition z-10 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                </button>
+
+                <div class="carousel-container overflow-hidden">
+                    <div class="carousel-track flex transition-transform duration-300 ease-in-out gap-6" data-total="3">
+                        <!-- Review 1 -->
+                        <div class="carousel-item w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] flex-shrink-0">
+                            <div class="bg-white p-8 rounded-lg shadow-md h-full">
+                                <div class="mb-4">
+                                    <i data-lucide="quote" class="w-8 h-8 text-gray-400"></i>
+                                </div>
+                                <p class="text-gray-700 mb-6 italic">
+                                    "The combat system translates perfectly to paper. It's not just action, it's
+                                    philosophy in
+                                    motion."
+                                </p>
+                                <p class="font-bold text-gray-900">- James Lee</p>
+                            </div>
+                        </div>
+
+                        <!-- Review 2 -->
+                        <div class="carousel-item w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] flex-shrink-0">
+                            <div class="bg-white p-8 rounded-lg shadow-md h-full">
+                                <div class="mb-4">
+                                    <i data-lucide="quote" class="w-8 h-8 text-gray-400"></i>
+                                </div>
+                                <p class="text-gray-700 mb-6 italic">
+                                    "Enkwo and Ewineh are the power couple we needed. Finally, a fantasy story that
+                                    respects
+                                    relationships."
+                                </p>
+                                <p class="font-bold text-gray-900">- James Lee</p>
+                            </div>
+                        </div>
+
+                        <!-- Review 3 -->
+                        <div class="carousel-item w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] flex-shrink-0">
+                            <div class="bg-white p-8 rounded-lg shadow-md h-full">
+                                <div class="mb-4">
+                                    <i data-lucide="quote" class="w-8 h-8 text-gray-400"></i>
+                                </div>
+                                <p class="text-gray-700 mb-6 italic">
+                                    "Best African Fantasy I've read. The lore is incredibly deep. Can't wait for Volume
+                                    10!"
+                                </p>
+                                <p class="font-bold text-gray-900">- James Lee</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Arrow (Mobile Only) -->
+                <button
+                    class="carousel-next absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white text-gray-900 w-10 h-10 rounded-full flex md:hidden items-center justify-center hover:bg-gray-100 transition z-10 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Hub -->
+    <section class="py-12 bg-white border-t border-gray-100 text-center">
+        <a href="index.html"
+            class="inline-block px-10 py-4 bg-gray-900 text-white font-bold uppercase tracking-widest text-sm rounded hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1">
+            Back to Master Hub
+        </a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">
+                    Waiting for your delivery?
+                </h2>
+
+                <p class="text-gray-400 text-center mb-8">
+                    Dive into the lore right now on your phone. Play the prequel events in Aurion: KGF.
+                </p>
+
+                <!-- Mobile Game Logo -->
+                <div class="mb-8">
+                    <img src="https://d1yei2z3i6k35z.cloudfront.net/1015683/65f2e23dbc5cf_kgfmobilehomescreencover.jpg"
+                        alt="Aurion: KGF Mobile"
+                        class="w-32 h-32 mx-auto rounded-xl shadow-2xl border-2 border-gray-700">
+                </div>
+
+                <!-- App Store Buttons -->
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
+                    <a href="#" class="transition-transform hover:scale-105">
+                        <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-us?size=250x83"
+                            alt="Download on the App Store" class="h-12 w-40 object-contain">
+                    </a>
+                    <a href="#" class="transition-transform hover:scale-105">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                            alt="Get it on Google Play" class="h-12 w-40 object-contain">
+                    </a>
+                </div>
+
+                <!-- Copyright -->
+                <div class="text-center text-gray-500 text-sm">
+                    © <span id="year"></span> Kiro'o Games. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Universal Carousel Logic
+        class Carousel {
+            constructor(trackElement) {
+                this.track = trackElement;
+                this.container = trackElement.closest('.relative');
+                this.prevBtn = this.container.querySelector('.carousel-prev');
+                this.nextBtn = this.container.querySelector('.carousel-next');
+                this.currentIndex = 0;
+                this.totalItems = parseInt(this.track.getAttribute('data-total'));
+
+                this.init();
+            }
+
+            getItemsToShow() {
+                // Check if we are in Arc 2 (ZAMA) which has 3 items
+                if (this.totalItems === 3) {
+                    return window.innerWidth >= 768 ? 3 : 2;
+                }
+                // Arc 3 (BIDIO) has 4 items
+                return window.innerWidth >= 768 ? 4 : 2;
+            }
+
+            update() {
+                const itemsToShow = this.getItemsToShow();
+                const item = this.track.children[0];
+                // Calculate total width of one item including the gap
+                // gap-6 is 1.5rem = 24px
+                const gap = 24;
+                const itemWidth = item.offsetWidth + gap;
+
+                const translateX = -(this.currentIndex * itemWidth);
+                this.track.style.transform = `translateX(${translateX}px)`;
+
+                // Update Button States
+                this.prevBtn.disabled = this.currentIndex === 0;
+                this.nextBtn.disabled = this.currentIndex >= this.totalItems - itemsToShow;
+
+                // Visual feedback for disabled state
+                this.prevBtn.style.opacity = this.currentIndex === 0 ? '0.5' : '1';
+                this.prevBtn.style.cursor = this.currentIndex === 0 ? 'not-allowed' : 'pointer';
+
+                this.nextBtn.style.opacity = this.currentIndex >= this.totalItems - itemsToShow ? '0.5' : '1';
+                this.nextBtn.style.cursor = this.currentIndex >= this.totalItems - itemsToShow ? 'not-allowed' : 'pointer';
+            }
+
+            next() {
+                const itemsToShow = this.getItemsToShow();
+                if (this.currentIndex < this.totalItems - itemsToShow) {
+                    this.currentIndex++;
+                    this.update();
+                }
+            }
+
+            prev() {
+                if (this.currentIndex > 0) {
+                    this.currentIndex--;
+                    this.update();
+                }
+            }
+
+            init() {
+                this.nextBtn.addEventListener('click', () => this.next());
+                this.prevBtn.addEventListener('click', () => this.prev());
+
+                // Handle resize
+                window.addEventListener('resize', () => {
+                    this.currentIndex = 0;
+                    this.update();
+                });
+
+                // Initial update
+                // Small delay to ensure layout is computed
+                setTimeout(() => this.update(), 100);
+            }
+        }
+
+        // Initialize all carousels when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.carousel-track').forEach(track => {
+                new Carousel(track);
+            });
+        });
+    </script>
+</body>
+
+</html>
