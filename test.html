@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurionverse - The Unified Experience</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Cinzel for Fantasy, Inter for Tech) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                    },
+                    colors: {
+                        'aurion-gold': '#FFD700',
+                        'aurion-blue': '#00BFFF',
+                        'midnight': '#020617',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- STYLES PERSONNALISÉS --- */
+
+        /* 1. Navigation Sticky Animation */
+        #main-nav {
+            transition: all 0.4s ease-in-out;
+        }
+        
+        #main-nav.scrolled {
+            background-color: rgba(2, 6, 23, 0.9); /* Midnight Blue très sombre */
+            backdrop-filter: blur(12px); /* Effet verre */
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1); /* Liseré doré subtil */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* 2. Parallax Effect */
+        .parallax-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .parallax-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 110%; /* Un peu plus grand pour le mouvement */
+            object-fit: cover;
+            z-index: -1;
+            will-change: transform; /* Optimisation performance */
+        }
+
+        /* Overlay sombre pour lisibilité */
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(2,6,23,0.3) 0%, rgba(2,6,23,0.7) 100%);
+            z-index: 0;
+        }
+
+        /* 3. Hero Content Styling */
+        .hero-content {
+            z-index: 10;
+            position: relative;
+            text-align: center;
+        }
+
+        /* Effet de lueur sur le logo */
+        .logo-glow {
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+            transition: transform 0.3s ease;
+        }
+        .logo-glow:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.5));
+        }
+
+    </style>
+</head>
+<body class="bg-midnight text-white font-sans selection:bg-aurion-gold selection:text-black">
+
+    <!-- NAVIGATION (Sticky) -->
+    <nav id="main-nav" class="fixed w-full top-0 z-50 py-6 px-6 transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            
+            <!-- Nav Links Gauche -->
+            <div class="hidden md:flex gap-8 text-sm font-bold tracking-widest uppercase">
+                <a href="#" class="hover:text-aurion-gold transition-colors duration-300">Lore</a>
+                <a href="#" class="hover:text-aurion-gold transition-colors duration-300">Games</a>
+            </div>
+
+            <!-- Logo Central (Petit pour la Nav) -->
+            <div class="text-xl font-serif font-bold tracking-tighter text-white">
+                AURION<span class="text-aurion-gold">VERSE</span>
+            </div>
+
+            <!-- Nav Links Droite + CTA -->
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex gap-8 text-sm font-bold tracking-widest uppercase">
+                    <a href="#" class="hover:text-aurion-gold transition-colors duration-300">Shop</a>
+                    <a href="#" class="hover:text-aurion-gold transition-colors duration-300">Blog</a>
+                </div>
+                <button class="bg-aurion-gold text-black px-5 py-2 rounded-sm font-bold uppercase text-xs tracking-wider hover:bg-white transition-colors duration-300">
+                    Connect
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION (Parallax) -->
+    <header class="parallax-container">
+        <!-- Background Video -->
+        <video autoplay loop muted playsinline class="parallax-video" id="hero-video">
+            <source src="https://d1yei2z3i6k35z.cloudfront.net/1015683/644b9a4819477_aurionverse_banner_video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Dark Overlay -->
+        <div class="video-overlay"></div>
+
+        <!-- Hero Content (Centered) -->
+        <div class="hero-content container mx-auto px-4 flex flex-col items-center justify-center h-full">
+            
+            <!-- Hero Image Box (Enlarged Logo) -->
+            <div class="mb-8 transform scale-125 md:scale-150 transition-transform duration-700 hover:scale-[1.6]">
+                <img src="https://d1yei2z3i6k35z.cloudfront.net/1015683/6442575d8baa5_logo_kiroo.png" 
+                     alt="Kiroo Games Logo" 
+                     class="w-48 md:w-64 h-auto logo-glow mx-auto">
+            </div>
+
+            <!-- Tagline -->
+            <h1 class="text-3xl md:text-5xl font-serif font-bold text-white mb-6 tracking-wide drop-shadow-lg text-center leading-tight">
+                THE LEGACY BEGINS<br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-aurion-gold to-orange-500">
+                    WITH YOU
+                </span>
+            </h1>
+
+            <p class="text-slate-300 max-w-xl text-center mb-10 text-lg font-light leading-relaxed drop-shadow-md">
+                Dive into the first African-Fantasy Universe. Experience the saga through Games, Comics, and Community.
+            </p>
+
+            <!-- Hero Bottom (Centered Buttons) -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center w-full">
+                <button class="group bg-transparent border-2 border-aurion-gold text-aurion-gold px-8 py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-aurion-gold hover:text-black transition-all duration-300 flex items-center justify-center gap-2">
+                    <i data-lucide="play-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    Watch Trailer
+                </button>
+                <button class="group bg-aurion-blue hover:bg-cyan-400 text-black px-8 py-4 rounded-sm font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,191,255,0.4)]">
+                    <i data-lucide="sparkles" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
+                    Enter the Verse
+                </button>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-70">
+                <i data-lucide="chevron-down" class="w-8 h-8 text-white"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENT PLACEHOLDER (To demonstrate Scroll) -->
+    <section class="py-24 bg-midnight relative z-10">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-serif font-bold text-white mb-8">Latest Chronicles</h2>
+            <p class="text-slate-400 mb-12">Scroll down to see the sticky navigation effect in action.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-slate-900 h-64 rounded border border-slate-800 hover:border-aurion-gold transition-colors duration-300 flex items-center justify-center">
+                    <span class="text-slate-600 font-bold uppercase tracking-widest">Content Block 1</span>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-slate-900 h-64 rounded border border-slate-800 hover:border-aurion-gold transition-colors duration-300 flex items-center justify-center">
+                    <span class="text-slate-600 font-bold uppercase tracking-widest">Content Block 2</span>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-slate-900 h-64 rounded border border-slate-800 hover:border-aurion-gold transition-colors duration-300 flex items-center justify-center">
+                    <span class="text-slate-600 font-bold uppercase tracking-widest">Content Block 3</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-slate-900 relative z-10">
+        <div class="container mx-auto px-6 text-center text-slate-500 text-sm">
+            &copy; 2026 Kiro'o Games. Aurionverse is a registered trademark.
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. Initialize Icons
+        lucide.createIcons();
+
+        // 2. Sticky Navigation Logic
+        const nav = document.getElementById('main-nav');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                // Quand on scrolle, la nav devient sombre et compacte
+                nav.classList.add('scrolled', 'py-4');
+                nav.classList.remove('py-6');
+            } else {
+                // En haut de page, la nav est transparente et aérée
+                nav.classList.remove('scrolled', 'py-4');
+                nav.classList.add('py-6');
+            }
+        });
+
+        // 3. Parallax Effect Logic
+        const video = document.getElementById('hero-video');
+        const heroContent = document.querySelector('.hero-content');
+
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            
+            // On bouge la vidéo moins vite que le scroll (Ratio 0.5)
+            // Cela crée l'effet de profondeur
+            if (video) {
+                video.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+            }
+
+            // Optionnel : On peut aussi faire bouger le texte légèrement plus vite ou moins vite
+            heroContent.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+        });
+    </script>
+</body>
+</html>
+
+<header id="header">
+        <nav>
+            <div class="logo-container">
+                <!-- Nouveau logo Kiroo demandé -->
+                <img src="https://d1yei2z3i6k35z.cloudfront.net/1015683/6442575d8baa5_logo_kiroo.png" alt="Aurion Logo" class="logo">
+            </div>
+            <div class="nav-links">
+                <a href="#store">Store</a>
+            </div>
+            <div class="nav-icons">
+                <!-- Icones SVG conservées -->
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+            </div>
+            <div class="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section avec Parallax et Nouveau Layout -->
+    <section class="hero">
+        <!-- Nouvelle Vidéo Background -->
+        <video class="hero-video-bg" id="hero-video" autoplay muted loop playsinline>
+            <source src="https://d1yei2z3i6k35z.cloudfront.net/1015683/644b9a4819477_aurionverse_banner_video.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <div class="hero-main">
+                <h1>Dive into a Fantasy world</h1>
+            </div>
+            
+            <!-- Centered & Enlarged Bottom Section -->
+            <div class="hero-bottom">
+                
+                <!-- Image Box (Agrandie et placée au centre) -->
+                <div class="hero-image-box">
+                    <div class="hero-image-placeholder">
+                        <img src="https://d1yei2z3i6k35z.cloudfront.net/1015683/6447b6b7c9ca6_Tomepack1.png" alt="Free Volumes">
+                    </div>
+                    <div class="hero-image-box-content">
+                        <button class="hero-box-btn">get 3 free volumes!</button>
+                    </div>
+                </div>
+
+                <!-- Platform Info (Centré en dessous) -->
+                <div class="platform-section">
+                    <p class="platform-info">The game is currently available on</p>
+                    <div class="platform-buttons">
+                        <button class="btn"><img src="https://d1yei2z3i6k35z.cloudfront.net/1015683/69849f7560838_btnxbox1.png" alt="Xbox"></button>
+                        <button class="btn"><img src="https://d1yei2z3i6k35z.cloudfront.net/1015683/69849f7aa34b1_btnsteam1.png" alt="Steam"></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>

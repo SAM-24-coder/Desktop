@@ -138,7 +138,6 @@
             overflow: hidden;
             transition: all 0.3s ease-in-out;
             opacity: 1;
-            /* Visible by default */
         }
 
         .main_h.sticky {
@@ -151,24 +150,174 @@
             scroll-behavior: smooth;
         }
 
-        /* Grayscale Filter for Images/Videos */
-        .grayscale-media {
+        /* ========== PARALLAX STYLES ========== */
+        .parallax-container {
+            position: relative;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            will-change: transform;
+            transition: transform 0.1s ease-out;
+        }
+
+        .parallax-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
             filter: grayscale(100%);
+        }
+
+        .parallax-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Fade-in animation pour le contenu */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .fade-in-up-delay-1 {
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        .fade-in-up-delay-2 {
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        .fade-in-up-delay-3 {
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+
+        /* ========== PARALLAX SCROLL DEMO (Quote Section) ========== */
+        .parallax-scroll-section {
+            position: relative;
+            overflow: hidden;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .parallax-scroll-bg {
+            position: absolute;
+            top: -20%;
+            left: 0;
+            width: 100%;
+            height: 140%;
+            will-change: transform;
+            transform-origin: center center;
+        }
+
+        .parallax-scroll-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 110%;
+            min-height: 110%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: grayscale(100%) brightness(0.5);
+        }
+
+        .parallax-scroll-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, 
+                rgba(229, 229, 229, 0.7) 0%, 
+                rgba(229, 229, 229, 0.6) 50%, 
+                rgba(229, 229, 229, 0.7) 100%);
+        }
+
+        .parallax-scroll-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .quote-parallax-container {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quote-parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            will-change: transform;
+        }
+
+        .quote-parallax-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: grayscale(100%) brightness(0.4);
+        }
+
+        .quote-parallax-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, 
+                rgba(23, 23, 23, 0.7) 0%, 
+                rgba(23, 23, 23, 0.85) 50%, 
+                rgba(23, 23, 23, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .quote-content {
+            position: relative;
+            z-index: 10;
+            will-change: transform, opacity;
+            transition: transform 0.1s ease-out, opacity 0.1s ease-out;
         }
     </style>
 </head>
 
-<body
-    class="bg-neutral-950 text-neutral-100 font-sans selection:bg-neutral-500 selection:text-white bg-cover bg-center bg-no-repeat bg-fixed"
-    style="background-image: url('https://aurionthegame.com/assets/bg-home.png'); filter: grayscale(100%);">
-
-    <!-- Wrapper to reset filter for content if needed, but body filter applies to all. 
-         Ideally, we apply filter to bg only, but inline style on body affects children. 
-         Let's move bg image to a div.
-    -->
-    <div class="fixed inset-0 z-[-1] bg-cover bg-center bg-no-repeat"
-        style="background-image: url('https://aurionthegame.com/assets/bg-home.png'); filter: grayscale(100%) brightness(0.4);">
-    </div>
+<body class="bg-neutral-950 text-neutral-100 font-sans selection:bg-neutral-500 selection:text-white">
 
     <!-- NAV -->
     <nav class="main_h fixed w-full z-50 backdrop-blur-md border-b border-neutral-800 transition-all duration-300"
@@ -220,55 +369,53 @@
         </div>
     </nav>
 
-    <!-- 1. HERO SECTION -->
-    <header class="relative h-[85vh] md:h-screen flex items-center justify-center overflow-hidden">
-        <!-- Video Background Simulation -->
-        <div class="absolute inset-0 z-0">
+    <!-- 1. HERO SECTION AVEC PARALLAX -->
+    <header class="parallax-container">
+        <!-- Parallax Background Layer -->
+        <div class="parallax-bg" id="parallax-bg">
             <!-- Overlay Gradient -->
-            <div class="absolute inset-0 bg-neutral-950/80 z-10"></div>
-            <!-- Placeholder for Video Loop -->
-            <video class="absolute inset-0 hero-video grayscale opacity-40" autoplay muted loop playsinline
-                preload="metadata">
+            <div class="absolute inset-0 bg-gradient-to-b from-neutral-950/60 via-neutral-950/80 to-neutral-950 z-10"></div>
+            <!-- Video Background -->
+            <video class="parallax-video" autoplay muted loop playsinline preload="metadata">
                 <source src="https://d1yei2z3i6k35z.cloudfront.net/1015683/6447f9426539e_scope2_web.mp4"
                     type="video/mp4">
             </video>
         </div>
 
-        <div class="container mx-auto px-6 relative z-20 text-center mt-32">
-            <h1
-                class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight tracking-wider font-sans text-white uppercase opacity-90">
-                You read the story
-            </h1>
-            <h2
-                class="text-4xl md:text-6xl lg:text-7xl font-bold mb-12 leading-tight tracking-wider font-sans text-white uppercase">
-                Now Master It
-            </h2>
+        <!-- Content Layer -->
+        <div class="parallax-content">
+            <div class="container mx-auto px-6 text-center">
+                <h1
+                    class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight tracking-wider font-sans text-white uppercase fade-in-up">
+                    You read the story
+                </h1>
+                <h2
+                    class="text-4xl md:text-6xl lg:text-7xl font-bold mb-12 leading-tight tracking-wider font-sans text-white uppercase fade-in-up-delay-1">
+                    Now Master It
+                </h2>
 
-            <p class="text-xs text-neutral-500 uppercase tracking-[0.3em] mb-24 max-w-2xl mx-auto">
-                The first African-Fantasy Action RPG. Become Enkwo Kori-Odan.
-            </p>
+                <p class="text-xs text-neutral-400 uppercase tracking-[0.3em] mb-24 max-w-2xl mx-auto fade-in-up-delay-2">
+                    The first African-Fantasy Action RPG. Become Enkwo Kori-Odan.
+                </p>
 
-            <h3 class="text-3xl md:text-5xl font-bold text-neutral-600 uppercase tracking-tighter mb-16 select-none">
-                Bg : EPIC ANIMATED BATTLE SCENES
-            </h3>
-
-            <div class="flex flex-col items-center gap-6">
-                <!-- Main CTA -->
-                <a href="#pricing"
-                    class="bg-neutral-200 hover:bg-white text-black px-8 py-3 rounded-sm font-bold text-sm tracking-widest uppercase transition shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transform hover:-translate-y-1 duration-300">
-                    Get the Legacy
-                </a>
-
-                <!-- Platforms -->
-                <div
-                    class="hidden md:flex items-center gap-3 text-neutral-500 text-[10px] uppercase tracking-widest mt-4">
-                    <span class="text-xs">Also available on major platforms :</span>
-                    <a href="#" class="text-xs hover:text-white transition flex items-center gap-1.5 group">
-                        STEAM <i data-lucide="monitor" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                <div class="flex flex-col items-center gap-6 fade-in-up-delay-3">
+                    <!-- Main CTA -->
+                    <a href="#pricing"
+                        class="bg-neutral-200 hover:bg-white text-black px-8 py-3 rounded-sm font-bold text-sm tracking-widest uppercase transition shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transform hover:-translate-y-1 duration-300">
+                        Get the Legacy
                     </a>
-                    <a href="#" class="text-xs hover:text-white transition flex items-center gap-1.5 group">
-                        XBOX <i data-lucide="gamepad-2" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
-                    </a>
+
+                    <!-- Platforms -->
+                    <div
+                        class="hidden md:flex items-center gap-3 text-neutral-500 text-[10px] uppercase tracking-widest mt-4">
+                        <span class="text-xs">Also available on major platforms :</span>
+                        <a href="#" class="text-xs hover:text-white transition flex items-center gap-1.5 group">
+                            STEAM <i data-lucide="monitor" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                        </a>
+                        <a href="#" class="text-xs hover:text-white transition flex items-center gap-1.5 group">
+                            XBOX <i data-lucide="gamepad-2" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -362,9 +509,6 @@
                 </p>
             </div>
 
-
-            <!-- Single Big Card -->
-
             <!-- Media Placeholder (Large) -->
             <div
                 class="aspect-video md:aspect-[16/7] bg-neutral-500 rounded-xl mb-8 overflow-hidden relative group cursor-pointer video-hover-container shadow-inner">
@@ -389,12 +533,20 @@
         </div>
     </section>
 
-    <!-- 4. QUOTE -->
-    <section class="py-24 bg-neutral-200 flex items-center justify-center">
-        <div class="container mx-auto px-6 relative z-10 text-center">
-            <i data-lucide="quote" class="w-16 h-16 text-neutral-800 mx-auto mb-8 fill-neutral-800"></i>
+    <!-- 4. QUOTE WITH PARALLAX SCROLL -->
+    <section class="parallax-scroll-section py-24" id="quote-section">
+        <!-- Parallax Background Video -->
+        <div class="parallax-scroll-bg" id="quote-parallax-bg">
+            <video class="parallax-scroll-video" autoplay muted loop playsinline preload="metadata">
+                <source src="https://d1yei2z3i6k35z.cloudfront.net/1015683/644b9a4819477_aurionverse_banner_video.mp4"
+                    type="video/mp4">
+            </video>
+            <div class="parallax-scroll-overlay"></div>
+        </div>
 
-            <h3 class="text-xl font-bold text-neutral-400 uppercase mb-4">Bg: ARTWORK: Emotional Couple Scene</h3>
+        <!-- Quote Content -->
+        <div class="parallax-scroll-content container mx-auto px-6 py-16 text-center">
+            <i data-lucide="quote" class="w-16 h-16 text-neutral-800 mx-auto mb-8 fill-neutral-800"></i>
 
             <blockquote
                 class="text-3xl md:text-5xl font-bold text-neutral-900 mb-6 max-w-4xl mx-auto leading-tight font-sans tracking-tight">
@@ -572,7 +724,76 @@
         // 2. Set Year
         document.getElementById('year').innerText = new Date().getFullYear();
 
-        // 3. Slider Logic
+        // ========== 3. PARALLAX SCROLL EFFECT ==========
+        let ticking = false;
+
+        function updateParallax() {
+            const parallaxBg = document.getElementById('parallax-bg');
+            const scrolled = window.pageYOffset;
+            const heroHeight = document.querySelector('.parallax-container').offsetHeight;
+            
+            // Calculer le pourcentage de scroll dans le hero
+            const scrollPercent = Math.min(scrolled / heroHeight, 1);
+            
+            // Appliquer la transformation parallax (déplacement plus lent que le scroll)
+            // Le background se déplace à 50% de la vitesse du scroll
+            const yPos = scrolled * 0.5;
+            
+            parallaxBg.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            
+            ticking = false;
+        }
+
+        function requestTick() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', requestTick);
+
+        // ========== 3.2. PARALLAX SCROLL DEMO (Quote Section) ==========
+        function updateQuoteParallax() {
+            const quoteSection = document.getElementById('quote-section');
+            const quoteBg = document.getElementById('quote-parallax-bg');
+            
+            if (!quoteSection || !quoteBg) return;
+            
+            const rect = quoteSection.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            // Vérifier si la section est visible
+            if (rect.top < windowHeight && rect.bottom > 0) {
+                // Calculer le pourcentage de scroll à travers la section
+                // 0 = section en bas de l'écran, 1 = section en haut de l'écran
+                const scrollPercent = (windowHeight - rect.top) / (windowHeight + rect.height);
+                
+                // Mouvement du background de -300px à +300px (très visible!)
+                // Le background monte pendant qu'on scroll vers le bas
+                const translateY = (scrollPercent - 0.5) * 600;
+                
+                quoteBg.style.transform = `translate3d(0, ${translateY}px, 0)`;
+            }
+        }
+
+        // Appel initial pour positionner correctement
+        updateQuoteParallax();
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateQuoteParallax();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Initialiser au chargement
+        updateQuoteParallax();
+
+        // 4. Slider Logic
         const sliderInput = document.getElementById('slider-input');
         const sliderForeground = document.getElementById('slider-foreground');
         const sliderHandle = document.getElementById('slider-handle');
@@ -612,7 +833,7 @@
         window.addEventListener('resize', initSlider);
         initSlider();
 
-        // 4. Sticky Header Animation on Scroll
+        // 5. Sticky Header Animation on Scroll
         window.addEventListener('scroll', function () {
             const mainHeader = document.querySelector('.main_h');
 
@@ -623,23 +844,17 @@
             }
         });
 
-        // 5. Mobile Menu Logic
+        // 6. Mobile Menu Logic
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
         if (mobileBtn && mobileMenu) {
             mobileBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
-                // Toggle icon
-                const icon = mobileMenu.classList.contains('hidden') ? 'menu' : 'x';
-                // We would need to replace the lucide icon, but simpler is to just toggle class
-                // For now, let's just keep it simple logic or re-render icon if needed
-                // But since lucide renders SVG, we can't easily change "data-lucide" attribute dynamically without re-running createIcons
-                // So we'll skip icon change for MVP or add logic to swap SVG content
             });
         }
 
-        // 6. Video Hover Logic
+        // 7. Video Hover Logic
         const videoContainers = document.querySelectorAll('.video-hover-container');
 
         videoContainers.forEach(container => {
@@ -651,7 +866,7 @@
 
                 container.addEventListener('mouseleave', () => {
                     video.pause();
-                    video.currentTime = 0; // Optional: Reset to start
+                    video.currentTime = 0;
                 });
             }
         });
